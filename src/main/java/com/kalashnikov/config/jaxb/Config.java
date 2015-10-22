@@ -1,4 +1,4 @@
-package com.kalashnikov.monitoring;
+package com.kalashnikov.config.jaxb;
 
 import javax.xml.bind.annotation.*;
 

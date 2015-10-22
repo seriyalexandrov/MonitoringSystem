@@ -1,5 +1,8 @@
 package com.kalashnikov.monitoring;
 
+import com.kalashnikov.config.jaxb.Config;
+import com.kalashnikov.config.jaxb.configurator.Configurator;
+
 public class SystemExecutor {
 
     public static void main(String[] args) {
