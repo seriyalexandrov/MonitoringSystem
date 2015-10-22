@@ -1,6 +1,6 @@
 package com.kalashnikov.config.jaxb.configurator;
 
-import com.kalashnikov.config.jaxb.Config;
+import com.kalashnikov.config.jaxb.Options;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -10,11 +10,13 @@ import java.io.*;
 
 public class Configurator {
 
-    public void  marshaller(Config myConfig) {
+    public void  marshaller(Options myOptions) {
 
         try {
-            JAXBContext context = JAXBContext.newInstance(Config.class);
+            JAXBContext context = JAXBContext.newInstance(Options.class);
             Marshaller marshaller = context.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
             File inputConfig = new File("resources//Config.xml");
             OutputStream outStream = null;
 
@@ -24,27 +26,29 @@ public class Configurator {
                 e.printStackTrace();
             }
 
-            marshaller.marshal(myConfig, outStream);
+            //marshaller.marshal(myOptions, new File("resources//Config.xml"));
+            //marshaller.marshal(myOptions, System.out);
+            marshaller.marshal(myOptions, outStream);
         } catch (JAXBException e) {
             e.printStackTrace();
         }
 
     }
 
-    public Config  unMarshaller() {
+    public Options  unMarshaller() {
 
-        Config myConfig = new Config();
+        Options myOptions = new Options();
 
         try {
-            JAXBContext context = JAXBContext.newInstance(Config.class);
+            JAXBContext context = JAXBContext.newInstance(Options.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
             File xmlFile = new File("resources//Config.xml");
-            myConfig = (Config) unmarshaller.unmarshal(xmlFile);
+            myOptions = (Options) unmarshaller.unmarshal(xmlFile);
         } catch (JAXBException e) {
             e.printStackTrace();
         }
 
-        return myConfig;
+        return myOptions;
 
     }
 
