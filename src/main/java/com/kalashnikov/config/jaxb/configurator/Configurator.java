@@ -16,19 +16,7 @@ public class Configurator {
             JAXBContext context = JAXBContext.newInstance(Options.class);
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
-            File inputConfig = new File("resources//Config.xml");
-            OutputStream outStream = null;
-
-            try {
-                outStream = new FileOutputStream(inputConfig);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-
-            //marshaller.marshal(myOptions, new File("resources//Config.xml"));
-            //marshaller.marshal(myOptions, System.out);
-            marshaller.marshal(myOptions, outStream);
+            marshaller.marshal(myOptions, new File("resources//Config.xml"));
         } catch (JAXBException e) {
             e.printStackTrace();
         }

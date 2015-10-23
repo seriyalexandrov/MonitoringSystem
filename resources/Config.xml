@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <OPTIONS>
     <OPTION>
-        <OPTION_NAME>option1</OPTION_NAME>
+        <OPTION_NAME>Option1</OPTION_NAME>
         <OPTION_VALUE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:boolean">true</OPTION_VALUE>
     </OPTION>
     <OPTION>
-        <OPTION_NAME>option2</OPTION_NAME>
+        <OPTION_NAME>Option2</OPTION_NAME>
         <OPTION_VALUE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">read only</OPTION_VALUE>
     </OPTION>
     <OPTION>
-        <OPTION_NAME>option3</OPTION_NAME>
+        <OPTION_NAME>Option3</OPTION_NAME>
         <OPTION_VALUE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:int">1</OPTION_VALUE>
     </OPTION>
 </OPTIONS>

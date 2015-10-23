@@ -1,7 +1,5 @@
 package com.kalashnikov.config.jaxb;
 
-import com.kalashnikov.config.jaxb.Option;
-
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
@@ -21,7 +19,7 @@ public class Options {
         return options;
     }
 
-    public void add(Option option) {
+    public void addOption(Option option) {
         if (this.options == null) {
             this.options = new ArrayList<Option>();
         }
