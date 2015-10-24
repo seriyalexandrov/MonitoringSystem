@@ -1,6 +1,6 @@
-package com.kalashnikov.config.jaxb.configurator;
+package com.kalashnikov.monitoring.config.jaxb.configurator;
 
-import com.kalashnikov.config.jaxb.Options;
+import com.kalashnikov.monitoring.config.jaxb.Options;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;

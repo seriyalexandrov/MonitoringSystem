@@ -1,16 +1,20 @@
-package com.kalashnikov.config.jaxb;
+package com.kalashnikov.monitoring.config.jaxb;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 
-@XmlRootElement(name = "OPTIONS")
+@XmlRootElement(name = "options")
 public class Options {
 
     List<Option> options;
 
-    @XmlElement(name = "OPTION")
+    public  Options() {
+        options = new ArrayList<Option>();
+    }
+
+    @XmlElement(name = "option")
     public void setOptions(List<Option> options) {
         this.options = options;
     }
@@ -20,9 +24,6 @@ public class Options {
     }
 
     public void addOption(Option option) {
-        if (this.options == null) {
-            this.options = new ArrayList<Option>();
-        }
         this.options.add(option);
     }
 

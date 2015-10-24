@@ -1,15 +1,15 @@
-package com.kalashnikov.config.jaxb;
+package com.kalashnikov.monitoring.config.jaxb;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "OPTION")
+@XmlRootElement(name = "option")
 public class Option {
 
     String name;
-    Object value;
+    String value;
 
-    @XmlElement(name = "OPTION_NAME")
+    @XmlElement(name = "option_name")
     public void setName(String name) {
         this.name = name;
     }
@@ -18,12 +18,12 @@ public class Option {
         return name;
     }
 
-    @XmlElement(name = "OPTION_VALUE")
-    public void setValue(Object value) {
+    @XmlElement(name = "option_value")
+    public void setValue(String value) {
         this.value = value;
     }
 
-    public Object getValue() {
+    public String getValue() {
         return value;
     }
 
