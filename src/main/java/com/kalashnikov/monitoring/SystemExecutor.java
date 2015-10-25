@@ -6,6 +6,8 @@ import com.kalashnikov.monitoring.config.jaxb.configurator.Configurator;
 
 public class SystemExecutor {
 
+    private static OrderLogic logic;
+
     public static void main(String[] args) {
 
         System.out.println("Executed!");
@@ -35,6 +37,11 @@ public class SystemExecutor {
             System.out.println(configurator.unMarshaller().getOptions().get(i).getName()
                     + ": " + configurator.unMarshaller().getOptions().get(i).getValue());
         }
+
+        //Here is how we do logging :
+        System.out.println("\nLet's try to check some logging :\n");
+        logic = new OrderLogic();
+        logic.doOrder();
 
     }
 
