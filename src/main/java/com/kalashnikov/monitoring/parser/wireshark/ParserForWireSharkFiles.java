@@ -29,16 +29,11 @@ public class ParserForWireSharkFiles {
 
     private List<String> getListFromFile(String pathToFile) {
         String regex = "^No\\. +Time +Source +Destination +Protocol +$";
-        BufferedReader reader = null;
-        try {
-            reader = new BufferedReader(new FileReader(pathToFile));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        String line;
-        List<String> lines = new ArrayList<String>();
-        int flag = 0;
-        try {
+        try (BufferedReader reader = new BufferedReader(new FileReader(pathToFile))) {
+
+            String line;
+            List<String> lines = new ArrayList<String>();
+            int flag = 0;
             while ((line = reader.readLine()) != null) {
                 if (flag != 0) {
                     lines.add(line);
@@ -48,16 +43,14 @@ public class ParserForWireSharkFiles {
                     flag++;
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                reader.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            return lines;
+        } catch (FileNotFoundException fn) {
+            System.out.println("File not found");
+            return new ArrayList<String>();
+        } catch (IOException ioe) {
+            System.out.println("Error reading");
+            return new ArrayList<String>();
         }
-        return lines;
     }
 
 
