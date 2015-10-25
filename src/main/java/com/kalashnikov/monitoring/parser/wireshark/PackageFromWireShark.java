@@ -1,4 +1,4 @@
-package com.kalashnikov.monitoring;
+package com.kalashnikov.monitoring.parser.wireshark;
 
 
 public class PackageFromWireShark {

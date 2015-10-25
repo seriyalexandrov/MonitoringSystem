@@ -1,4 +1,4 @@
-package com.kalashnikov.monitoring;
+package com.kalashnikov.monitoring.parser.wireshark;
 
 
 import java.io.BufferedReader;
@@ -9,10 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ParserForWireSharkFiles {
-     // pathToFile = "resources\\traffic.cap"
-    public List<PackageFromWireShark> getPackageListFromStringList(String pathToFile) {
-        List<String> untreatedList = getListFromFile(pathToFile);
-        List<String> stingsWithRightInformation = getStingsWithRightInformation(untreatedList);
+    // pathToFile = "resources\\traffic.cap"
+    public List<PackageFromWireShark> getPackageListFromFile(String pathToFile) {
+        List<String> stingsWithRightInformation = getListFromFile(pathToFile);
         PackageFromWireShark pack;
         String[] dividedString;
         List<PackageFromWireShark> packageList = new ArrayList<PackageFromWireShark>(stingsWithRightInformation.size());
@@ -29,6 +28,7 @@ public class ParserForWireSharkFiles {
     }
 
     private List<String> getListFromFile(String pathToFile) {
+        String regex = "^No\\. +Time +Source +Destination +Protocol +$";
         BufferedReader reader = null;
         try {
             reader = new BufferedReader(new FileReader(pathToFile));
@@ -37,10 +37,16 @@ public class ParserForWireSharkFiles {
         }
         String line;
         List<String> lines = new ArrayList<String>();
-
+        int flag = 0;
         try {
             while ((line = reader.readLine()) != null) {
-                lines.add(line);
+                if (flag != 0) {
+                    lines.add(line);
+                    flag = 0;
+                }
+                if (line.matches(regex)) {
+                    flag++;
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -52,17 +58,6 @@ public class ParserForWireSharkFiles {
             }
         }
         return lines;
-    }
-
-    private List<String> getStingsWithRightInformation(List<String> untreatedList) {
-        List<String> processedList = new ArrayList<String>();
-        String regex = "^No\\. +Time +Source +Destination +Protocol +$";
-        for (int i = 0; i < untreatedList.size() - 1; i++) {
-            if (untreatedList.get(i).matches(regex)) {
-                processedList.add(untreatedList.get(i + 1));
-            }
-        }
-        return processedList;
     }
 
 
