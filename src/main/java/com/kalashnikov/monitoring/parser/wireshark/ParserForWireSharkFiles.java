@@ -15,16 +15,20 @@ public class ParserForWireSharkFiles {
         PackageFromWireShark pack;
         String[] dividedString;
         List<PackageFromWireShark> packageList = new ArrayList<PackageFromWireShark>(stingsWithRightInformation.size());
-        for (int i = 0; i < stingsWithRightInformation.size(); i++) {
-            dividedString = stingsWithRightInformation.get(i).split(" +");
+        for (String stringWithInform : stingsWithRightInformation) {
+            dividedString = stringWithInform.split(" +");
             pack = new PackageFromWireShark(Integer.parseInt(dividedString[1]));
-            pack.setTime(Double.parseDouble(dividedString[2]));
-            pack.setSource(dividedString[3]);
-            pack.setDestination(dividedString[4]);
-            pack.setProtocol(dividedString[5]);
+            setPackage(pack, dividedString);
             packageList.add(pack);
         }
         return packageList;
+    }
+
+    private void setPackage(PackageFromWireShark pack, String[] dividedString) {
+        pack.setTime(Double.parseDouble(dividedString[2]));
+        pack.setSource(dividedString[3]);
+        pack.setDestination(dividedString[4]);
+        pack.setProtocol(dividedString[5]);
     }
 
     private List<String> getListFromFile(String pathToFile) {
