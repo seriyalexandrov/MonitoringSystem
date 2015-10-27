@@ -4,15 +4,22 @@ import org.junit.Test;
 
 public class LoggerExample {
 
-    private Logger log;
+    private Logger log = Logger.getLogger(LoggerExample.class);
 
     @Before
     public void createLogger() {
-        log = Logger.getLogger(LoggerExample.class);
+
     }
 
     @Test
     public void test() {
-        log.fatal("Fatal error!!!!");
+
+        try {
+            throw new Exception("error!");
+        } catch (Exception e) {
+            log.fatal("Fatal error occurred in test", e);
+        }
+
+
     }
 }

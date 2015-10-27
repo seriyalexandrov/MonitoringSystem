@@ -22,6 +22,12 @@ public class JustATestExample {
         assertEquals(c, OPERATION_VALUE);
     }
 
+    @Test
+    public void aaaa() {
+        int c = a + b;
+        assertEquals(c, OPERATION_VALUE);
+    }
+
     @After
     public void finishTest() {
         a = 0;
