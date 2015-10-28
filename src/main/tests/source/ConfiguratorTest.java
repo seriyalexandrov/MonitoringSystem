@@ -19,7 +19,6 @@ public class ConfiguratorTest {
     @Before
     public void initTest() {
 
-
         namesOfOptions.add("Option1");
         namesOfOptions.add("Option2");
         namesOfOptions.add("Option3");
