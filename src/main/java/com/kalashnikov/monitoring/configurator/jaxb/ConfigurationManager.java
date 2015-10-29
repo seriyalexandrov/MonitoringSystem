@@ -1,9 +1,9 @@
 package com.kalashnikov.monitoring.configurator.jaxb;
 
+import com.kalashnikov.monitoring.exceptions.NoSuchOptionException;
 import org.apache.log4j.Logger;
 
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 public final class ConfigurationManager {
 
@@ -34,26 +34,19 @@ public final class ConfigurationManager {
         Boolean result = true;
 
         while (it.hasNext()) {
-            if (it.next().getName() == optionName) {
+            if (it.next().getName().equals(optionName)) {
                 result = false;
                 break;
             }
         }
 
-        if (!result) {
-            try {
-                throw new UnsupportedOperationException();
-            } catch (UnsupportedOperationException e) {
-                log.error("Option \"" + optionName + "\" is already exist", e);
-            }
-            throw new UnsupportedOperationException();
+        if (result) {
+            Option option = new Option();
+            option.setName(optionName);
+            option.setValue(optionValue);
+            options.addOption(option);
+            Flush();
         }
-
-        Option option = new Option();
-        option.setName(optionName);
-        option.setValue(optionValue);
-        options.addOption(option);
-        Flush();
 
     }
 
@@ -65,23 +58,16 @@ public final class ConfigurationManager {
 
         while (it.hasNext()) {
             option = it.next();
-            if (option.getName() == optionName) {
+            if (option.getName().equals(optionName)) {
                 options.getOptions().remove(option);
                 result = true;
                 break;
             }
         }
 
-        if (!result) {
-            try {
-                throw new NoSuchElementException();
-            } catch (NoSuchElementException e) {
-                log.error("Option \"" + optionName + "\" not found", e);
-            }
-            throw new NoSuchElementException();
+        if (result) {
+            Flush();
         }
-
-        Flush();
 
     }
 
@@ -93,23 +79,16 @@ public final class ConfigurationManager {
 
         while (it.hasNext()) {
             option = it.next();
-            if (option.getName() == optionName) {
+            if (option.getName().equals(optionName)) {
                 options.getOptions().get(options.getOptions().indexOf(option)).setValue(newOptionValue);
                 result = true;
                 break;
             }
         }
 
-        if (!result) {
-            try {
-                throw new NoSuchElementException();
-            } catch (NoSuchElementException e) {
-                log.error("Option \"" + optionName + "\" not found", e);
-            }
-            throw new NoSuchElementException();
+        if (result) {
+            Flush();
         }
-
-        Flush();
 
     }
 
@@ -121,7 +100,7 @@ public final class ConfigurationManager {
 
         while (it.hasNext()) {
             option = it.next();
-            if (option.getName() == optionName) {
+            if (option.getName().equals(optionName)) {
                 result = true;
                 break;
             }
@@ -129,11 +108,12 @@ public final class ConfigurationManager {
 
         if (!result) {
             try {
-                throw new NoSuchElementException();
-            } catch (NoSuchElementException e) {
+                throw new NoSuchOptionException();
+            } catch (NoSuchOptionException e) {
                 log.error("Option \"" + optionName + "\" not found", e);
             }
-            throw new NoSuchElementException();
+            System.out.println("Option \"" + optionName + "\" not found");
+            System.exit(-1);
         }
 
         return option.getValue();

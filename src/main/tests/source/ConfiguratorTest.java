@@ -14,24 +14,25 @@ public class ConfiguratorTest {
 
         configurationManager.addOption("Option1", "true");
         configurationManager.addOption("Option2", "read only");
-        configurationManager.addOption("Option3", "1");
+        configurationManager.addOption("Option3", "0");
 
         assertEquals(configurationManager.getOptionValue("Option1"), "true");
         assertEquals(configurationManager.getOptionValue("Option2"), "read only");
+        assertEquals(configurationManager.getOptionValue("Option3"), "0");
+
+        configurationManager.updateOptionValue("Option3", "1");
+
         assertEquals(configurationManager.getOptionValue("Option3"), "1");
 
-        configurationManager.updateOptionValue("Option3", "2");
-
-        assertEquals(configurationManager.getOptionValue("Option3"), "2");
-
+        /*configurationManager.deleteOption("Option1");
         configurationManager.deleteOption("Option1");
-        //configurationManager.deleteOption("Option1");
 
-        //configurationManager.addOption("Option2", "read and write");
+        configurationManager.addOption("Option2", "read and write");
 
-        //configurationManager.updateOptionValue("Option4", "15 sec");
+        configurationManager.updateOptionValue("Option4", "15 sec");
 
-        //configurationManager.getOptionValue("Option4");
+        configurationManager.getOptionValue("Option4");*/
+
     }
 
 }
