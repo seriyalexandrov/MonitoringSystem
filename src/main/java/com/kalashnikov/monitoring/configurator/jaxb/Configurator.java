@@ -1,6 +1,5 @@
-package com.kalashnikov.monitoring.config.jaxb.configurator;
+package com.kalashnikov.monitoring.configurator.jaxb;
 
-import com.kalashnikov.monitoring.config.jaxb.Options;
 import org.apache.log4j.Logger;
 
 import javax.xml.bind.JAXBContext;
@@ -9,12 +8,12 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.*;
 
-public class Configurator {
+class Configurator {
 
     private static final String CONFIG_FOLDER = "src//main//resources//Config.xml";
-    private Logger log = Logger.getLogger(Configurator.class);
+    private static Logger log = Logger.getLogger(Configurator.class);
 
-    public void  marshaller(Options myOptions) {
+    public static void  marshaller(Options myOptions) {
 
         try {
             JAXBContext context = JAXBContext.newInstance(Options.class);
@@ -27,7 +26,7 @@ public class Configurator {
 
     }
 
-    public Options  unMarshaller() {
+    public static Options  unMarshaller() {
 
         Options myOptions = new Options();
 
