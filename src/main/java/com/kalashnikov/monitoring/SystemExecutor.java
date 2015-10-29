@@ -1,18 +1,14 @@
 package com.kalashnikov.monitoring;
 
-import com.kalashnikov.monitoring.config.jaxb.Option;
-import com.kalashnikov.monitoring.config.jaxb.Options;
-import com.kalashnikov.monitoring.config.jaxb.configurator.Configurator;
-import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 
 public class SystemExecutor {
 
-    // Инициализация логера : аргумент может быть любым названием которое
-    //Мы захотим выбрать. В данном случае передается название класса
-    //Это удобно : так мы легко можем понять где произошла ошибка
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ : пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    //пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ. пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+    //пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ : пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
     private static final Logger log = Logger.getLogger(SystemExecutor.class);
-    //private static final Logger log = Logger.getLogger("bacon"); --возможный вариант
+    //private static final Logger log = Logger.getLogger("bacon"); --пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
 
     public static void main(String[] args) {
