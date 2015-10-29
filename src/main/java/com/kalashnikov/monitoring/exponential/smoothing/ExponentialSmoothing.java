@@ -1,4 +1,4 @@
-package com.kalashnikov.monitoring.ExponentialSmoothing;
+package com.kalashnikov.monitoring.exponential.smoothing;
 
 public class ExponentialSmoothing {
     public TimeSeriesUtils createModel(double... elements) {
