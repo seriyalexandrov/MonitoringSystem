@@ -17,7 +17,7 @@ public class Configurator {
     private static final Logger log = Logger.getLogger(Configurator.class);
 
 
-    public static String xmlSimpleReader() {
+    public String xmlSimpleReader() {
 
         //creating base for our XML file
         XMLConfiguration config = null;
@@ -45,7 +45,7 @@ public class Configurator {
         return xmlDocument;
     }
 
-    public static String docToString(Document doc) {
+    public String docToString(Document doc) {
         try {
             StringWriter sw = new StringWriter();
             TransformerFactory tf = TransformerFactory.newInstance();
