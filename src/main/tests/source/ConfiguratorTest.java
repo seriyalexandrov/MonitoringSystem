@@ -9,14 +9,17 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import static org.junit.Assert.assertEquals;
 
 public class ConfiguratorTest {
 
     @Rule public ExpectedException thrown = ExpectedException.none();
-    File config = new File("src//main//resources//Config.xml");
-    byte[] byteRepresentationOfConfig = new byte[(int) config.length()];
+    private static final String CONFIG_FOLDER = "src//main//resources//Config.xml";
+    File config = new File(CONFIG_FOLDER);
     String configFileContent = null;
     private Logger log = Logger.getLogger(ConfiguratorTest.class);
 
@@ -24,33 +27,18 @@ public class ConfiguratorTest {
     public void initTest() {
 
         try {
-//            read file to string using just one code line
-//            configFileContent = new String(Files.readAllBytes(Paths.get(DEFAULT_CONFIG_FILE_PATH)), StandardCharsets.UTF_8);
-            InputStream is = new FileInputStream(config);
-            int offset = 0;
-
-            boolean notEndOfFile = offset < byteRepresentationOfConfig.length;
-            int numberOfReadBytes = is.read(byteRepresentationOfConfig, offset, byteRepresentationOfConfig.length - offset);
-
-            while (notEndOfFile && numberOfReadBytes >= 0) {
-                offset += numberOfReadBytes;
-                notEndOfFile = offset < byteRepresentationOfConfig.length;
-            }
-
-            if (offset < byteRepresentationOfConfig.length) {
-                throw new IOException();
-            }
-            is.close();
-
-        } catch (FileNotFoundException e) {
-            log.error("Could not find file " + config.getName(), e);
+            configFileContent = new String(Files.readAllBytes(Paths.get(CONFIG_FOLDER)),
+                    StandardCharsets.UTF_8);
         } catch (IOException e) {
-            log.error("Could not completely read file " + config.getName(), e);
+            log.error("Could not read file " + config.getName(), e);
         }
+
 
         try {
             if (config.delete()) {
-                config.createNewFile();
+                if (!config.createNewFile()) {
+                    throw new IOException();
+                }
             }
         } catch (IOException e) {
             log.error("Could not rewrite file " + config.getName(), e);
@@ -93,20 +81,13 @@ public class ConfiguratorTest {
     public void finishTest() {
 
         try {
-
             FileOutputStream fos = new FileOutputStream(config);
-            fos.write(byteRepresentationOfConfig);
-
-//            Easily write String to file:
-//            fos.write(configFileContent.getBytes());
-
+            fos.write(configFileContent.getBytes());
             fos.close();
-
-        } catch (FileNotFoundException e) {
-            log.error("Could not find file " + config.getName(), e);
         } catch (IOException e) {
-            log.error("Could not completely write file " + config.getName(), e);
+            log.error("Could not write file " + config.getName(), e);
         }
+
 
     }
 
