@@ -14,23 +14,29 @@ import static org.junit.Assert.assertEquals;
 
 public class ConfiguratorTest {
 
+    @Rule public ExpectedException thrown = ExpectedException.none();
     File config = new File("src//main//resources//Config.xml");
     byte[] byteRepresentationOfConfig = new byte[(int) config.length()];
+    String configFileContent = null;
     private Logger log = Logger.getLogger(ConfiguratorTest.class);
 
     @Before
     public void initTest() {
 
         try {
-
+//            read file to string using just one code line
+//            configFileContent = new String(Files.readAllBytes(Paths.get(DEFAULT_CONFIG_FILE_PATH)), StandardCharsets.UTF_8);
             InputStream is = new FileInputStream(config);
             int offset = 0;
-            int numRead;
-            while (offset < byteRepresentationOfConfig.length &&
-                    (numRead = is.read(byteRepresentationOfConfig, offset, byteRepresentationOfConfig.length - offset))
-                            >= 0) {
-                offset += numRead;
+
+            boolean notEndOfFile = offset < byteRepresentationOfConfig.length;
+            int numberOfReadBytes = is.read(byteRepresentationOfConfig, offset, byteRepresentationOfConfig.length - offset);
+
+            while (notEndOfFile && numberOfReadBytes >= 0) {
+                offset += numberOfReadBytes;
+                notEndOfFile = offset < byteRepresentationOfConfig.length;
             }
+
             if (offset < byteRepresentationOfConfig.length) {
                 throw new IOException();
             }
@@ -71,7 +77,6 @@ public class ConfiguratorTest {
 
     }
 
-    @Rule public ExpectedException thrown = ExpectedException.none();
     @Test
     public void performTestException() {
 
@@ -91,6 +96,10 @@ public class ConfiguratorTest {
 
             FileOutputStream fos = new FileOutputStream(config);
             fos.write(byteRepresentationOfConfig);
+
+//            Easily write String to file:
+//            fos.write(configFileContent.getBytes());
+
             fos.close();
 
         } catch (FileNotFoundException e) {
