@@ -1,6 +1,7 @@
 package com.kalashnikov.monitoring.configurator.jaxb;
 
 import com.kalashnikov.monitoring.exceptions.NoSuchOptionException;
+
 import org.apache.log4j.Logger;
 
 import java.util.Iterator;
