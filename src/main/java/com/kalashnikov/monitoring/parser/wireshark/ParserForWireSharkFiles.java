@@ -1,6 +1,9 @@
 package com.kalashnikov.monitoring.parser.wireshark;
 
 
+import com.kalashnikov.monitoring.SystemExecutor;
+import org.apache.log4j.Logger;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -9,7 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ParserForWireSharkFiles {
-    // pathToFile = "resources\\traffic.cap"
+    private static final Logger log = Logger.getLogger(SystemExecutor.class);
+    // pathToFile = "src\\main\\resources\\traffic.cap"
     public List<PackageFromWireShark> getPackageListFromFile(String pathToFile) {
         List<String> stingsWithRightInformation = getListFromFile(pathToFile);
         PackageFromWireShark pack;
@@ -49,10 +53,10 @@ public class ParserForWireSharkFiles {
             }
             return lines;
         } catch (FileNotFoundException fn) {
-            System.out.println("File not found");
+            log.error("File not find");
             return new ArrayList<String>();
         } catch (IOException ioe) {
-            System.out.println("Error reading");
+            log.error("Error reading");
             return new ArrayList<String>();
         }
     }
