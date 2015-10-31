@@ -4,35 +4,28 @@ import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.XMLConfiguration;
 import org.apache.log4j.Logger;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class Configurator {
 
     private static final Logger log = Logger.getLogger(Configurator.class);
+    public static final String ERROR_OCURRED_WHILE_CONFIG_WAS_CREATED = "Error ocurred while config was created";
+    public static final String FILE_NAME = "config.xml";
 
 
     public Map<String, String> xmlConfiguratorReader() {
 
-        //creating an object to contain content of XML-file
-        Map<String, String> options = new LinkedHashMap<String, String>();
+        Map<String, String> options = new TreeMap<String, String>();
 
-        //creating base for our XML file
         XMLConfiguration config = null;
         try {
-            config = new XMLConfiguration("config.xml");
+            config = new XMLConfiguration(FILE_NAME);
         } catch (ConfigurationException e) {
-            log.error("Error ocurred while config was created");
+            log.error(ERROR_OCURRED_WHILE_CONFIG_WAS_CREATED);
         }
 
-        /**
-         * Then, first, check the condition of STOPPING :
-         *  If there is more key in file, we continue
-         *  and get string
-         *  int i  - counter
-         */
         int i = 0;
-
         while(config.containsKey("option(" + i + ").option_name")) {
             String option_name = config.getString("option(" + i + ").option_name");
             String option_value = config.getString("option(" + i + ").option_value");
