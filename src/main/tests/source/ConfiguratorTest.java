@@ -4,9 +4,7 @@ import com.kalashnikov.monitoring.exceptions.NoSuchOptionException;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -14,10 +12,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class ConfiguratorTest {
 
-    @Rule public ExpectedException thrown = ExpectedException.none();
     private static final String CONFIG_FOLDER = "src//main//resources//Config.xml";
     File config = new File(CONFIG_FOLDER);
     String configFileContent = null;
@@ -47,7 +45,7 @@ public class ConfiguratorTest {
     }
 
     @Test
-    public void performTest() {
+    public void performTest() throws NoSuchOptionException {
 
         ConfigurationManager configurationManager = ConfigurationManager.getInstance();
 
@@ -68,12 +66,30 @@ public class ConfiguratorTest {
     @Test
     public void performTestException() {
 
+        boolean thrown = false;
+
         ConfigurationManager configurationManager = ConfigurationManager.getInstance();
 
         configurationManager.deleteOption("Option3");
 
-        thrown.expect(NoSuchOptionException.class);
-        configurationManager.getOptionValue("Option3");
+        try {
+            configurationManager.getOptionValue("Option3");
+        } catch (NoSuchOptionException e) {
+            thrown = true;
+        }
+
+        if (!thrown) {
+
+            try {
+                FileOutputStream fos = new FileOutputStream(config);
+                fos.write(configFileContent.getBytes());
+                fos.close();
+            } catch (IOException e) {
+                log.error("Could not write file " + config.getName(), e);
+            }
+            assertTrue(!thrown);
+
+        }
 
     }
 

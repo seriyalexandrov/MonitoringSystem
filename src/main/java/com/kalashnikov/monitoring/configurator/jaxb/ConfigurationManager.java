@@ -93,7 +93,7 @@ public final class ConfigurationManager {
 
     }
 
-    public String getOptionValue(String optionName) {
+    public String getOptionValue(String optionName) throws NoSuchOptionException {
 
         Iterator<Option> it = options.getOptions().iterator();
         Option option = new Option();
@@ -108,13 +108,10 @@ public final class ConfigurationManager {
         }
 
         if (!result) {
-            try {
-                throw new NoSuchOptionException();
-            } catch (NoSuchOptionException e) {
-                log.error("Option \"" + optionName + "\" not found", e);
-            }
-            System.out.println("Option \"" + optionName + "\" not found");
-            System.exit(-1);
+
+            log.error("Option \"" + optionName + "\" not found");
+            throw new NoSuchOptionException();
+
         }
 
         return option.getValue();
