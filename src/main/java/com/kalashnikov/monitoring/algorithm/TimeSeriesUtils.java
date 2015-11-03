@@ -71,5 +71,3 @@ public class TimeSeriesUtils {
         return s / newSeries.series.length;
     }
 }
-
-
