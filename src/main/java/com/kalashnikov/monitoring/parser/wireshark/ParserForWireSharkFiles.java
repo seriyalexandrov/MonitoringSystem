@@ -13,9 +13,10 @@ import java.util.List;
 
 public class ParserForWireSharkFiles {
     private static final Logger log = Logger.getLogger(SystemExecutor.class);
-    // pathToFile = "src\\main\\resources\\traffic.cap"
-    public List<PackageFromWireShark> getPackageListFromFile(String pathToFile) {
-        List<String> stingsWithRightInformation = getListFromFile(pathToFile);
+    private static final String PATH_TO_FILE = "src\\main\\resources\\traffic.cap";
+
+    public List<PackageFromWireShark> getPackageListFromFile() {
+        List<String> stingsWithRightInformation = getListFromFile(PATH_TO_FILE);
         PackageFromWireShark pack;
         String[] dividedString;
         List<PackageFromWireShark> packageList = new ArrayList<PackageFromWireShark>(stingsWithRightInformation.size());

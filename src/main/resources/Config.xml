@@ -2,14 +2,14 @@
 <options>
     <option>
         <option_name>Option1</option_name>
-        <option_value>true</option_value>
+        <option_value>LinearTrend</option_value>
     </option>
     <option>
         <option_name>Option2</option_name>
-        <option_value>read only</option_value>
+        <option_value>10</option_value>
     </option>
     <option>
         <option_name>Option3</option_name>
-        <option_value>1</option_value>
+        <option_value>read only</option_value>
     </option>
 </options>

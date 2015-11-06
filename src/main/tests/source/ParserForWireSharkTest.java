@@ -18,9 +18,8 @@ public class ParserForWireSharkTest {
 
     @Test
     public void testRealPath() {
-        String path = "src\\main\\resources\\traffic.cap";
         ParserForWireSharkFiles parser = new ParserForWireSharkFiles();
-        List<PackageFromWireShark> list = parser.getPackageListFromFile(path);
+        List<PackageFromWireShark> list = parser.getPackageListFromFile();
         for(PackageFromWireShark pack : list){
             System.out.println(pack.toString());
         }
@@ -28,9 +27,8 @@ public class ParserForWireSharkTest {
     }
     @Test
     public void wrongWay() {
-        String path = "path";
         ParserForWireSharkFiles parser = new ParserForWireSharkFiles();
-        List<PackageFromWireShark> list = parser.getPackageListFromFile(path);
+        List<PackageFromWireShark> list = parser.getPackageListFromFile();
         assertEquals(list.size(), b);
 
     }

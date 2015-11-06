@@ -7,9 +7,22 @@ import org.apache.log4j.Logger;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class Configurator {
+public final class Configurator {
+
+    private static class InstanceHolder {
+
+        private static final Configurator instance = new Configurator();
+
+    }
+
+    public static Configurator getInstance() {
+
+        return InstanceHolder.instance;
+
+    }
 
     private static final Logger log = Logger.getLogger(Configurator.class);
+
     public static final String ERROR_OCURRED_WHILE_CONFIG_WAS_CREATED = "Error ocurred while config was created";
     public static final String FILE_NAME = "config.xml";
 
@@ -17,7 +30,6 @@ public class Configurator {
     public Map<String, String> xmlConfiguratorReader() {
 
         Map<String, String> options = new TreeMap<String, String>();
-
         XMLConfiguration config = null;
         try {
             config = new XMLConfiguration(FILE_NAME);
@@ -34,6 +46,7 @@ public class Configurator {
         }
 
         return options;
+
     }
 
 }
