@@ -1,66 +1,124 @@
 package com.kalashnikov.monitoring.parser.wireshark;
 
 
-import com.kalashnikov.monitoring.SystemExecutor;
-import org.apache.log4j.Logger;
-
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
-public class ParserForWireSharkFiles {
-    private static final Logger log = Logger.getLogger(SystemExecutor.class);
-    private static final String PATH_TO_FILE = "src\\main\\resources\\traffic.cap";
+import static java.lang.Thread.sleep;
 
-    public List<PackageFromWireShark> getPackageListFromFile() {
-        List<String> stingsWithRightInformation = getListFromFile(PATH_TO_FILE);
-        PackageFromWireShark pack;
-        String[] dividedString;
-        List<PackageFromWireShark> packageList = new ArrayList<PackageFromWireShark>(stingsWithRightInformation.size());
-        for (String stringWithInform : stingsWithRightInformation) {
-            dividedString = stringWithInform.split(" +");
-            pack = new PackageFromWireShark(Integer.parseInt(dividedString[1]));
-            setPackage(pack, dividedString);
-            packageList.add(pack);
+public class ParserForWireSharkFiles implements Runnable {
+    private BufferedReader bufferedReader;
+    private final String REGEX = "^No\\. +Time +Source +Destination +Protocol +$";
+    public static final int ERROR_VALUE = -2;
+    public static final int END_OF_FILE_VALUE = -1;
+    private final String FIRST_PACKAGE_INITIALIZATION = "firstPackage";
+    private String firstPackage;
+    private int globalCounter;
+    private HelperToTheParser helper;
+
+    public ParserForWireSharkFiles(HelperToTheParser helper, BufferedReader bufferedReader) {
+        this.helper = helper;
+        this.bufferedReader = bufferedReader;
+        this.firstPackage = helper.getFirstPackage();
+    }
+
+
+    public synchronized void setHelperWithNumberOfPackages() {
+        double t = helper.getMaximumTime();
+        int flag = 0;
+        int counter;
+        String line;
+        double time;
+        if (firstPackage == null) {
+            System.out.println("End of file");
+            helper.setNumberOfPackages(END_OF_FILE_VALUE);
+            return;
         }
-        return packageList;
-    }
-
-    private void setPackage(PackageFromWireShark pack, String[] dividedString) {
-        pack.setTime(Double.parseDouble(dividedString[2]));
-        pack.setSource(dividedString[3]);
-        pack.setDestination(dividedString[4]);
-        pack.setProtocol(dividedString[5]);
-    }
-
-    private List<String> getListFromFile(String pathToFile) {
-        String regex = "^No\\. +Time +Source +Destination +Protocol +$";
-        try (BufferedReader reader = new BufferedReader(new FileReader(pathToFile))) {
-
-            String line;
-            List<String> lines = new ArrayList<String>();
-            int flag = 0;
-            while ((line = reader.readLine()) != null) {
+        if (firstPackage.equals(FIRST_PACKAGE_INITIALIZATION)) {
+            firstPackage = getFirstPackage();
+        }
+        if (!checkFirstPackage(firstPackage, t)) {
+            helper.setFirstPackage(firstPackage);
+            helper.setNumberOfPackages(0);
+            return;
+        }
+        counter = globalCounter;
+        try {
+            while ((line = bufferedReader.readLine()) != null) {
                 if (flag != 0) {
-                    lines.add(line);
-                    flag = 0;
+                    time = getTime(line);
+                    if (time < t) {
+                        counter++;
+                        flag = 0;
+                    } else {
+                        break;
+                    }
                 }
-                if (line.matches(regex)) {
+                if (line.matches(REGEX)) {
                     flag++;
                 }
             }
-            return lines;
-        } catch (FileNotFoundException fn) {
-            log.error("File not find");
-            return new ArrayList<String>();
-        } catch (IOException ioe) {
-            log.error("Error reading");
-            return new ArrayList<String>();
+            helper.setFirstPackage(line);
+            globalCounter = 0;
+            helper.setNumberOfPackages(counter);
+            return;
+        } catch (IOException e) {
+            e.printStackTrace();
+            helper.setNumberOfPackages(ERROR_VALUE);
+            return;
         }
     }
 
+    private synchronized double getTime(String line) {
+        String[] dividedString;
+        dividedString = line.split(" +");
+        return Double.parseDouble(dividedString[2]);
+    }
 
+    private synchronized boolean checkFirstPackage(String line, double interval) {
+        double time = getTime(line);
+        if (time < interval) {
+            globalCounter++;
+            return true;
+        }
+        return false;
+    }
+
+    private synchronized String getFirstPackage() {
+        String line;
+        int flag = 0;
+        try {
+            while ((line = bufferedReader.readLine()) != null) {
+                if (flag != 0) {
+                    return line;
+                }
+                if (line.matches(REGEX)) {
+                    flag++;
+                }
+            }
+            firstPackage = line;
+            return null; //log
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null; //log
+        }
+
+    }
+
+
+    public HelperToTheParser getHelper() {
+        return helper;
+    }
+
+    @Override
+    public void run() {
+        try {
+            sleep((long) helper.getTimeInterval() * 1000);
+            System.out.println("I don't sleep");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        setHelperWithNumberOfPackages();
+    }
 }
+
