@@ -22,17 +22,16 @@ public class FinishedParser implements Runnable {
 
     private synchronized void setArrayList() {
         ParserForWireSharkFiles parser;
-        Thread thread;
         HelperToTheParser inputHelper;
         while (true) {
             parser = new ParserForWireSharkFiles(helper, br);
-            thread = new Thread(parser);
-            thread.start();
             try {
-                thread.join();
+                Thread.sleep((long) (helper.getTimeInterval()*1000));
+                System.out.println("privet");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            parser.setHelperWithNumberOfPackages();
             inputHelper = parser.getHelper();
             if (inputHelper.getNumberOfPackages() == ParserForWireSharkFiles.END_OF_FILE_VALUE) {
                 break;
