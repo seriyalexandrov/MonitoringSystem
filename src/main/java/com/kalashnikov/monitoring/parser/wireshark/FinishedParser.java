@@ -17,10 +17,10 @@ public class FinishedParser implements Runnable {
 
     @Override
     public void run() {
-        setArrayList();
+        setValues();
     }
 
-    private synchronized void setArrayList() {
+    private synchronized void setValues() {
         int numberOfPackages;
         double maxTime;
         String lastPackage;
