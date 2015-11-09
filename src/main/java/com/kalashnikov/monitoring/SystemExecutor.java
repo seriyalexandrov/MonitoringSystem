@@ -5,7 +5,7 @@ import com.kalashnikov.monitoring.algorithm.linear.trend.TimeSeriesManager;
 import com.kalashnikov.monitoring.configurator.jaxb.ConfigurationManager;
 import com.kalashnikov.monitoring.exceptions.NoSuchOptionException;
 import com.kalashnikov.monitoring.parser.wireshark.PackageFromWireShark;
-import com.kalashnikov.monitoring.parser.wireshark.ParserForWireSharkFiles;
+//import com.kalashnikov.monitoring.parser.wireshark.ParserForWireSharkFiles;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -34,12 +34,12 @@ public class SystemExecutor {
             ;
         }
 
-        ParserForWireSharkFiles parser = new ParserForWireSharkFiles();
-        List<PackageFromWireShark> packages = parser.getPackageListFromFile();
+//        ParserForWireSharkFiles parser = new ParserForWireSharkFiles();
+//        List<PackageFromWireShark> packages = parser.getPackageListFromFile();
 
         switch(options.get("Option1")) {
             case "LinearTrend":
-                linearTrend(packages, options);
+                //linearTrend(packages, options);
                 break;
         }
 

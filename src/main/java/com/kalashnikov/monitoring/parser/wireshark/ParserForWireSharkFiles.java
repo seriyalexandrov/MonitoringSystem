@@ -1,11 +1,14 @@
 package com.kalashnikov.monitoring.parser.wireshark;
 
 
+import org.apache.log4j.Logger;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 
 class ParserForWireSharkFiles {
 
+    private static final Logger log = Logger.getLogger(ParserForWireSharkFiles.class);
     private BufferedReader bufferedReader;
     private final String REGEX = "^No\\. +Time +Source +Destination +Protocol +$";
     public static final int ERROR_VALUE = -2;
@@ -59,7 +62,7 @@ class ParserForWireSharkFiles {
             lastPackage = line;
             return counter;
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("Reading error",e);
             return ERROR_VALUE;
         }
     }
@@ -91,11 +94,10 @@ class ParserForWireSharkFiles {
                     flag++;
                 }
             }
-            firstPackage = line;
-            return null; //log
+            return line; //line = null
         } catch (IOException e) {
-            e.printStackTrace();
-            return null; //log
+            log.error("Reading error",e);
+            return null;
         }
 
     }

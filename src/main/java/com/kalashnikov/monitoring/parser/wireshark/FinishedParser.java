@@ -1,5 +1,7 @@
 package com.kalashnikov.monitoring.parser.wireshark;
 
+import org.apache.log4j.Logger;
+
 import java.io.BufferedReader;
 import java.util.ArrayList;
 
@@ -11,6 +13,7 @@ public class FinishedParser implements Runnable {
         this.br = br;
     }
 
+    private static final Logger log = Logger.getLogger(FinishedParser.class);
     private ArrayList values;
     private BufferedReader br;
     private double timeInterval;
@@ -31,7 +34,7 @@ public class FinishedParser implements Runnable {
             try {
                 Thread.sleep((long) (timeInterval * 1000));
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                log.error(e);
             }
             numberOfPackages = parser.getNumberOfPackages();
             if (numberOfPackages == ParserForWireSharkFiles.END_OF_FILE_VALUE) {
