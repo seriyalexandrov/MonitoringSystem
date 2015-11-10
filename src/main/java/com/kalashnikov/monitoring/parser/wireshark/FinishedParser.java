@@ -7,21 +7,26 @@ import java.util.ArrayList;
 
 
 public class FinishedParser implements Runnable {
-    public FinishedParser(BufferedReader br, ArrayList values, double timeInterval) {
-        this.timeInterval = timeInterval;
-        this.values = values;
-        this.br = br;
-    }
+
 
     private static final Logger log = Logger.getLogger(FinishedParser.class);
     private ArrayList values;
     private BufferedReader br;
     private double timeInterval;
 
+
+    public FinishedParser(BufferedReader br, ArrayList values, double timeInterval) {
+        this.timeInterval = timeInterval;
+        this.values = values;
+        this.br = br;
+    }
+
+
     @Override
     public void run() {
         setValues();
     }
+
 
     private synchronized void setValues() {
         int numberOfPackages;

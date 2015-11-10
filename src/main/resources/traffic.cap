@@ -369,7 +369,7 @@ Transmission Control Protocol, Src Port: 443 (443), Dst Port: 57920 (57920), Seq
 No.     Time           Source                Destination           Protocol 
      40 5.834815000    108.160.162.107       192.168.137.253       TCP
 
-Frame 39: 66 bytes on wire (528 bits), 66 bytes captured (528 bits) on interface 0
+Frame 40: 66 bytes on wire (528 bits), 66 bytes captured (528 bits) on interface 0
 Ethernet II, Src: 16:2f:68:6c:fc:56 (16:2f:68:6c:fc:56), Dst: Apple_bb:b5:24 (9c:f3:87:bb:b5:24)
 Internet Protocol Version 4, Src: 108.160.162.107 (108.160.162.107), Dst: 192.168.137.253 (192.168.137.253)
 Transmission Control Protocol, Src Port: 443 (443), Dst Port: 57920 (57920), Seq: 326, Ack: 395, Len: 0

@@ -10,6 +10,8 @@ import java.util.ArrayList;
  * Created by Evgeny on 09.11.2015.
  */
 public class FinishedParserTest {
+
+
     public final String path = "src\\main\\resources\\traffic.cap";
     public final double timeInterval = 1;
 

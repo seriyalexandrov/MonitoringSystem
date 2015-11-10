@@ -8,6 +8,7 @@ import java.io.IOException;
 
 class ParserForWireSharkFiles {
 
+
     private static final Logger log = Logger.getLogger(ParserForWireSharkFiles.class);
     private BufferedReader bufferedReader;
     private final String REGEX = "^No\\. +Time +Source +Destination +Protocol +$";
@@ -18,6 +19,7 @@ class ParserForWireSharkFiles {
     private String lastPackage;
     private double maxTime;
     private int globalCounter;
+
 
     ParserForWireSharkFiles(String firstPackage, double maxTime, BufferedReader bufferedReader) {
         this.firstPackage = firstPackage;
@@ -33,7 +35,6 @@ class ParserForWireSharkFiles {
         String line;
         double time;
         if (firstPackage == null) {
-            System.out.println("End of file");
             return END_OF_FILE_VALUE;
         }
         if (firstPackage.equals(FIRST_PACKAGE_INITIALIZATION)) {

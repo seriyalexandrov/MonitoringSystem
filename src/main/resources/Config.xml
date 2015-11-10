@@ -1,15 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <options>
     <option>
-        <option_name>Option1</option_name>
-        <option_value>LinearTrend</option_value>
+        <option_name>algorithm</option_name>
+        <option_value>linear_trend</option_value>
     </option>
     <option>
-        <option_name>Option2</option_name>
-        <option_value>10</option_value>
+        <option_name>time_series_interval</option_name>
+        <option_value>0.5</option_value>
     </option>
     <option>
-        <option_name>Option3</option_name>
-        <option_value>read only</option_value>
+        <option_name>prediction_time_interval</option_name>
+        <option_value>5</option_value>
+    </option>
+    <option>
+        <option_name>prediction_time</option_name>
+        <option_value>30</option_value>
+    </option>
+    <option>
+        <option_name>packet_limit</option_name>
+        <option_value>3</option_value>
+    </option>
+    <option>
+        <option_name>number_of_values_for_trend</option_name>
+        <option_value>5</option_value>
     </option>
 </options>
