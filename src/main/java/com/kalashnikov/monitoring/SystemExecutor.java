@@ -2,8 +2,6 @@ package com.kalashnikov.monitoring;
 
 import com.kalashnikov.monitoring.algorithm.linear.trend.LinearTrend;
 import com.kalashnikov.monitoring.algorithm.linear.trend.TimeSeriesManager;
-import com.kalashnikov.monitoring.configurator.jaxb.ConfigurationManager;
-import com.kalashnikov.monitoring.exceptions.NoSuchOptionException;
 import com.kalashnikov.monitoring.parser.wireshark.FinishedParser;
 import org.apache.log4j.Logger;
 
@@ -12,19 +10,22 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
-public class SystemExecutor {
+public class SystemExecutor extends Options{
 
     private static final Logger log = Logger.getLogger(SystemExecutor.class);
+    public static final String LINEAR_TREND = "linear_trend";
+    public static final String LIMIT_IS_EXCEEDED_GET_READY_TO_IT = "Limit is exceeded! Get ready to it!";
+    public static final String TIME_SERIES = "timeSeries = ";
+    public static final String PREDICTED_VALUE = "predictedValue = ";
+    public static final String FILE_WAS_NOT_FOUND = "File was not found";
+    public static final String EXECUTION_WAS_STOPPED = "Execution was stopped";
+    public static final String PROCESS_WAS_INTERRUPTED = "Process was interrupted";
+    public static final String EXECUTION_TIME = "Execution time : ";
+    public static final String SEC = "sec";
     public final String PATH = "src\\main\\resources\\traffic.cap";
 
-    private String algorithmType = getAlgorithmType();
-    private double timeSeriesInterval = getTimeSeriesInterval();
-    private double predictionTimeInterval = getPredictionTimeInterval();
-    private double predictionTime = getPredictionTime();
-    private int packetLimit = getPacketLimit();
-    private int numberOfValuesForTrend = getNumberOfValuesForTrend();
+    private final int SECOND = 1000;
 
     public void execute() {
 
@@ -37,29 +38,29 @@ public class SystemExecutor {
             thread.start();
 
             switch (algorithmType) {
-                case "linear_trend":
+                case LINEAR_TREND:
                     for (int i = 0; i < predictionTime; i += predictionTimeInterval) {
-                        Thread.sleep((long) (predictionTimeInterval*1000));
+                        Thread.sleep((long) (predictionTimeInterval * SECOND));
                         double predictedValue = linearTrend(timeSeries, timeSeriesInterval);
                         if (predictedValue > packetLimit) {
-                            log.warn("Limit is exceeded! Get ready to it!");
+                            log.warn(LIMIT_IS_EXCEEDED_GET_READY_TO_IT);
                         }
-                        System.out.println("timeSeries = "+ timeSeries);
-                        System.out.println("predictedValue = " + predictedValue);
+                        System.out.println(TIME_SERIES + timeSeries);
+                        System.out.println(PREDICTED_VALUE + predictedValue);
                     }
                     break;
             }
             thread.join();
         } catch (FileNotFoundException e) {
-            log.error(e);
+            log.error(FILE_WAS_NOT_FOUND, e);
         } catch (IOException e) {
-            log.fatal(e);
+            log.error(EXECUTION_WAS_STOPPED, e);
         } catch (InterruptedException e) {
-            log.error(e);
+            log.error(PROCESS_WAS_INTERRUPTED, e);
         }
 
         long endTime = System.currentTimeMillis() - startTime;
-        log.info("Execution time : " + (double) endTime / 1000 + "sec");
+        log.info(EXECUTION_TIME + (double) endTime / SECOND + SEC);
 
     }
 
@@ -82,82 +83,11 @@ public class SystemExecutor {
 
     }
 
-    private String getAlgorithmType() {
-
-        ConfigurationManager configurationManager = ConfigurationManager.getInstance();
-        try {
-            return configurationManager.getOptionValue("algorithm");
-        } catch (NoSuchOptionException e) {
-            log.error("No such options", e);
-        }
-        return null;
-
-    }
-
-    private double getTimeSeriesInterval() {
-
-        ConfigurationManager configurationManager = ConfigurationManager.getInstance();
-        try {
-            return Double.parseDouble(configurationManager.getOptionValue("time_series_interval"));
-        } catch (NoSuchOptionException e) {
-            log.error("No such options", e);
-        }
-        return 0d;
-
-    }
-
-    private double getPredictionTimeInterval() {
-
-        ConfigurationManager configurationManager = ConfigurationManager.getInstance();
-        try {
-            return Double.parseDouble(configurationManager.getOptionValue("prediction_time_interval"));
-        } catch (NoSuchOptionException e) {
-            log.error("No such options", e);
-        }
-        return 0d;
-
-    }
-
-    private double getPredictionTime() {
-
-        ConfigurationManager configurationManager = ConfigurationManager.getInstance();
-        try {
-            return Double.parseDouble(configurationManager.getOptionValue("prediction_time"));
-        } catch (NoSuchOptionException e) {
-            log.error("No such options", e);
-        }
-        return 0d;
-
-    }
-
-    private int getPacketLimit() {
-
-        ConfigurationManager configurationManager = ConfigurationManager.getInstance();
-        try {
-            return Integer.parseInt(configurationManager.getOptionValue("packet_limit"));
-        } catch (NoSuchOptionException e) {
-            log.error("No such options", e);
-        }
-        return 0;
-
-    }
-
-    private int getNumberOfValuesForTrend() {
-
-        ConfigurationManager configurationManager = ConfigurationManager.getInstance();
-        try {
-            return Integer.parseInt(configurationManager.getOptionValue("number_of_values_for_trend"));
-        } catch (NoSuchOptionException e) {
-            log.error("No such options", e);
-        }
-        return 0;
-
-    }
-
     public static void main(String[] args) {
 
         SystemExecutor systemExecutor = new SystemExecutor();
         systemExecutor.execute();
+
     }
 
 }
