@@ -15,6 +15,7 @@ class ParserForWireSharkFiles {
     public static final int ERROR_VALUE = -2;
     public static final int END_OF_FILE_VALUE = -1;
     public static final String FIRST_PACKAGE_INITIALIZATION = "firstPackage";
+    private static final String READING_ERROR = "Reading error";
     private String firstPackage;
     private String lastPackage;
     private double maxTime;
@@ -63,12 +64,13 @@ class ParserForWireSharkFiles {
             lastPackage = line;
             return counter;
         } catch (IOException e) {
-            log.error("Reading error",e);
+            log.error(READING_ERROR,e);
             return ERROR_VALUE;
         }
     }
 
     private double getTime(String line) {
+
         String[] dividedString;
         dividedString = line.split(" +");
         return Double.parseDouble(dividedString[2]);
@@ -97,7 +99,7 @@ class ParserForWireSharkFiles {
             }
             return line; //line = null
         } catch (IOException e) {
-            log.error("Reading error",e);
+            log.error(READING_ERROR,e);
             return null;
         }
 

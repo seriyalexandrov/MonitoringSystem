@@ -13,6 +13,7 @@ public class FinishedParser implements Runnable {
     private ArrayList values;
     private BufferedReader br;
     private double timeInterval;
+    private final int MILLISECONDS_IN_SECOND = 1000;
 
 
     public FinishedParser(BufferedReader br, ArrayList values, double timeInterval) {
@@ -37,7 +38,7 @@ public class FinishedParser implements Runnable {
         parser = new ParserForWireSharkFiles(ParserForWireSharkFiles.FIRST_PACKAGE_INITIALIZATION, maxTime, br);
         while (true) {
             try {
-                Thread.sleep((long) (timeInterval * 1000));
+                Thread.sleep((long) (timeInterval * MILLISECONDS_IN_SECOND));
             } catch (InterruptedException e) {
                 log.error(e);
             }
