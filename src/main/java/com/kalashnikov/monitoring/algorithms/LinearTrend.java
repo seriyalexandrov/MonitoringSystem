@@ -1,6 +1,6 @@
-package com.kalashnikov.monitoring.algorithm.linear.trend;
+package com.kalashnikov.monitoring.algorithms;
 
-public class LinearTrend {
+public class LinearTrend implements AbstractAlgorithm {
 
     private TimeSeriesManager timeSeriesManager;
 
@@ -86,6 +86,7 @@ public class LinearTrend {
 
     }
 
+    @Override
     public double predictNextValue() {
 
         return regressionCoefficient * (timeSeriesManager.getTimeSeries().size() * timeSeriesManager.getPeriod()) +

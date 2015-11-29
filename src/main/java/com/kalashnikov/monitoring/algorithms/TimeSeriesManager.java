@@ -1,15 +1,15 @@
-package com.kalashnikov.monitoring.algorithm.linear.trend;
+package com.kalashnikov.monitoring.algorithms;
 
 import java.util.ArrayList;
 
-public class TimeSeriesManager {
+public  class TimeSeriesManager {
 
     private ArrayList<Integer> timeSeries;
     private double period;
 
     public  TimeSeriesManager() {
 
-        timeSeries = new ArrayList<Integer>();
+        timeSeries = new ArrayList<>();
 
     }
 

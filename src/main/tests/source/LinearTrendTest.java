@@ -1,5 +1,5 @@
-import com.kalashnikov.monitoring.algorithm.linear.trend.LinearTrend;
-import com.kalashnikov.monitoring.algorithm.linear.trend.TimeSeriesManager;
+import com.kalashnikov.monitoring.algorithms.LinearTrend;
+import com.kalashnikov.monitoring.algorithms.TimeSeriesManager;
 
 import org.junit.Test;
 

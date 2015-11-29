@@ -1,7 +1,7 @@
 package com.kalashnikov.monitoring;
 
-import com.kalashnikov.monitoring.algorithm.linear.trend.LinearTrend;
-import com.kalashnikov.monitoring.algorithm.linear.trend.TimeSeriesManager;
+import com.kalashnikov.monitoring.algorithms.LinearTrend;
+import com.kalashnikov.monitoring.algorithms.TimeSeriesManager;
 import com.kalashnikov.monitoring.parser.wireshark.FinishedParser;
 import org.apache.log4j.Logger;
 
@@ -13,9 +13,11 @@ import java.util.ArrayList;
 
 public class FactoryMethod extends Options{
 
-
     private static final Logger log = Logger.getLogger(FactoryMethod.class);
+
     public static final String LINEAR_TREND = "linear_trend";
+    public static final String SINGLE_EXPONENTIAL_SMOOTHING = "single_exponential_smoothing";
+    public static final String DOUBLE_EXPONENTIAL_SMOOTHING = "double_exponential_smoothing";
     public static final String LIMIT_IS_EXCEEDED_GET_READY_TO_IT = "Limit is exceeded! Get ready to it!";
     public static final String TIME_SERIES = "timeSeries = ";
     public static final String PREDICTED_VALUE = "predictedValue = ";
@@ -31,7 +33,7 @@ public class FactoryMethod extends Options{
     public void execute() {
 
         long startTime = System.currentTimeMillis();
-        ArrayList<Integer> timeSeries = new ArrayList();
+        ArrayList<Integer> timeSeries = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(PATH))) {
             FinishedParser parser = new FinishedParser(br, timeSeries, timeSeriesInterval);
