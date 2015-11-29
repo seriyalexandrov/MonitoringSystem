@@ -2,16 +2,22 @@ package com.kalashnikov.monitoring.algorithms;
 
 public class DoubleExponentialSmoothing implements AbstractAlgorithm {
 
-    private double levelSmoothingFactor;
-    private double trendSmoothingFactor;
+    private TimeSeriesManager timeSeriesManager;
 
     private double level;
     private double trend;
 
-    public DoubleExponentialSmoothing(TimeSeriesManager timeSeriesManager) {
+    public void setTimeSeriesManager(TimeSeriesManager timeSeriesManager) {
 
-        levelSmoothingFactor = 2.0 / (timeSeriesManager.getTimeSeries().size() + 1);
-        trendSmoothingFactor = 2.0 / (timeSeriesManager.getTimeSeries().size() + 1);
+        this.timeSeriesManager = timeSeriesManager;
+
+    }
+
+    @Override
+    public double predictNextValue() {
+
+        double levelSmoothingFactor = 2.0 / (timeSeriesManager.getTimeSeries().size() + 1);
+        double trendSmoothingFactor = 2.0 / (timeSeriesManager.getTimeSeries().size() + 1);
 
         level = timeSeriesManager.getTimeSeries().get(0);
         trend = (timeSeriesManager.getTimeSeries().get(timeSeriesManager.getTimeSeries().size() - 1) -
@@ -26,11 +32,6 @@ public class DoubleExponentialSmoothing implements AbstractAlgorithm {
                     (1 - levelSmoothingFactor) * (tempLevel + tempTrend);
             trend = trendSmoothingFactor * (level - tempLevel) + (1 - trendSmoothingFactor) * tempTrend;
         }
-
-    }
-
-    @Override
-    public double predictNextValue() {
 
         return level + trend;
 

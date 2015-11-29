@@ -82,7 +82,8 @@ public class FactoryMethod extends Options{
         }
         manager.setTimeSeries(partOfTimeSeries);
         manager.setPeriod(timeInterval);
-        LinearTrend linearTrend = new LinearTrend(manager);
+        LinearTrend linearTrend = new LinearTrend();
+        linearTrend.setTimeSeriesManager(manager);
         return linearTrend.predictNextValue();
 
     }

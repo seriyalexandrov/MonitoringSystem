@@ -21,7 +21,8 @@ public class SingleExponentialSmoothingTest {
         timeSeriesManager.add(1);
         timeSeriesManager.add(1);
 
-        SingleExponentialSmoothing singleExponentialSmoothing = new SingleExponentialSmoothing(timeSeriesManager);
+        SingleExponentialSmoothing singleExponentialSmoothing = new SingleExponentialSmoothing();
+        singleExponentialSmoothing.setTimeSeriesManager(timeSeriesManager);
 
         assertTrue(singleExponentialSmoothing.predictNextValue() - PREDICTED_VALUE_1 < 0.0001);
 
@@ -37,7 +38,8 @@ public class SingleExponentialSmoothingTest {
         timeSeriesManager.add(1);
         timeSeriesManager.add(2);
 
-        SingleExponentialSmoothing singleExponentialSmoothing = new SingleExponentialSmoothing(timeSeriesManager);
+        SingleExponentialSmoothing singleExponentialSmoothing = new SingleExponentialSmoothing();
+        singleExponentialSmoothing.setTimeSeriesManager(timeSeriesManager);
 
         assertTrue(singleExponentialSmoothing.predictNextValue() - PREDICTED_VALUE_2 < 0.0001);
 

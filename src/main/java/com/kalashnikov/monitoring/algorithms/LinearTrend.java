@@ -16,14 +16,9 @@ public class LinearTrend implements AbstractAlgorithm {
 
     private double shift;
 
-    public LinearTrend(TimeSeriesManager timeSeriesManager) {
+    public void setTimeSeriesManager(TimeSeriesManager timeSeriesManager) {
 
         this.timeSeriesManager = timeSeriesManager;
-        calculateAverageValue();
-        calculateStandardDeviation();
-        calculateCorrelationCoefficient();
-        calculateRegressionCoefficient();
-        calculateShift();
 
     }
 
@@ -88,6 +83,12 @@ public class LinearTrend implements AbstractAlgorithm {
 
     @Override
     public double predictNextValue() {
+
+        calculateAverageValue();
+        calculateStandardDeviation();
+        calculateCorrelationCoefficient();
+        calculateRegressionCoefficient();
+        calculateShift();
 
         return regressionCoefficient * (timeSeriesManager.getTimeSeries().size() * timeSeriesManager.getPeriod()) +
                 shift;

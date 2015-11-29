@@ -21,8 +21,8 @@ public class DoubleExponentialSmoothingTest {
         timeSeriesManager.add(1);
         timeSeriesManager.add(1);
 
-
-        DoubleExponentialSmoothing doubleExponentialSmoothing = new DoubleExponentialSmoothing(timeSeriesManager);
+        DoubleExponentialSmoothing doubleExponentialSmoothing = new DoubleExponentialSmoothing();
+        doubleExponentialSmoothing.setTimeSeriesManager(timeSeriesManager);
 
         assertTrue(doubleExponentialSmoothing.predictNextValue() - PREDICTED_VALUE_1 < 0.0001);
 
@@ -38,8 +38,8 @@ public class DoubleExponentialSmoothingTest {
         timeSeriesManager.add(1);
         timeSeriesManager.add(2);
 
-
-        DoubleExponentialSmoothing doubleExponentialSmoothing = new DoubleExponentialSmoothing(timeSeriesManager);
+        DoubleExponentialSmoothing doubleExponentialSmoothing = new DoubleExponentialSmoothing();
+        doubleExponentialSmoothing.setTimeSeriesManager(timeSeriesManager);
 
         assertTrue(doubleExponentialSmoothing.predictNextValue() - PREDICTED_VALUE_2 < 0.0001);
 

@@ -22,7 +22,8 @@ public class LinearTrendTest {
         timeSeriesManager.add(4);
         timeSeriesManager.add(5);
 
-        LinearTrend linearTrend = new LinearTrend(timeSeriesManager);
+        LinearTrend linearTrend = new LinearTrend();
+        linearTrend.setTimeSeriesManager(timeSeriesManager);
 
         assertTrue(linearTrend.predictNextValue() - PREDICTED_VALUE_1 < 0.00001);
 
@@ -39,7 +40,8 @@ public class LinearTrendTest {
         timeSeriesManager.add(3);
         timeSeriesManager.add(2);
 
-        LinearTrend linearTrend = new LinearTrend(timeSeriesManager);
+        LinearTrend linearTrend = new LinearTrend();
+        linearTrend.setTimeSeriesManager(timeSeriesManager);
 
         assertTrue(linearTrend.predictNextValue() - PREDICTED_VALUE_2 < 0.00001);
 
@@ -56,7 +58,8 @@ public class LinearTrendTest {
         timeSeriesManager.add(7);
         timeSeriesManager.add(7);
 
-        LinearTrend linearTrend = new LinearTrend(timeSeriesManager);
+        LinearTrend linearTrend = new LinearTrend();
+        linearTrend.setTimeSeriesManager(timeSeriesManager);
 
         assertTrue(linearTrend.predictNextValue() - PREDICTED_VALUE_3 < 0.00001);
 
