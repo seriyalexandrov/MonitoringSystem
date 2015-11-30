@@ -1,5 +1,6 @@
-package com.kalashnikov.monitoring;
+package com.kalashnikov.monitoring.algorithms;
 
+import com.kalashnikov.monitoring.SystemExecutor;
 import com.kalashnikov.monitoring.configurator.jaxb.ConfigurationManager;
 import com.kalashnikov.monitoring.exceptions.NoSuchOptionException;
 import org.apache.log4j.Logger;
@@ -7,6 +8,13 @@ import org.apache.log4j.Logger;
 public class Options {
 
     private static final Logger log = Logger.getLogger(SystemExecutor.class);
+    public static final String ALGORITHM = "algorithm";
+    public static final String NO_SUCH_OPTIONS = "No such options";
+    public static final String TIME_SERIES_INTERVAL = "time_series_interval";
+    public static final String PREDICTION_TIME_INTERVAL = "prediction_time_interval";
+    public static final String PREDICTION_TIME = "prediction_time";
+    public static final String NUMBER_OF_VALUES_FOR_TREND = "number_of_values_for_trend";
+    public static final String PACKET_LIMIT = "packet_limit";
     private final double DOUBLE_ZERO = 0d;
 
     public String algorithmType = getAlgorithmType();
@@ -20,9 +28,9 @@ public class Options {
 
         ConfigurationManager configurationManager = ConfigurationManager.getInstance();
         try {
-            return configurationManager.getOptionValue("algorithm");
+            return configurationManager.getOptionValue(ALGORITHM);
         } catch (NoSuchOptionException e) {
-            log.error("No such options", e);
+            log.error(NO_SUCH_OPTIONS, e);
         }
         return null;
 
@@ -32,11 +40,11 @@ public class Options {
 
         ConfigurationManager configurationManager = ConfigurationManager.getInstance();
         try {
-            return Double.parseDouble(configurationManager.getOptionValue("time_series_interval"));
+            return Double.parseDouble(configurationManager.getOptionValue(TIME_SERIES_INTERVAL));
         } catch (NoSuchOptionException e) {
-            log.error("No such options", e);
+            log.error(NO_SUCH_OPTIONS, e);
         }
-        return 0d;
+        return DOUBLE_ZERO;
 
     }
 
@@ -44,11 +52,11 @@ public class Options {
 
         ConfigurationManager configurationManager = ConfigurationManager.getInstance();
         try {
-            return Double.parseDouble(configurationManager.getOptionValue("prediction_time_interval"));
+            return Double.parseDouble(configurationManager.getOptionValue(PREDICTION_TIME_INTERVAL));
         } catch (NoSuchOptionException e) {
-            log.error("No such options", e);
+            log.error(NO_SUCH_OPTIONS, e);
         }
-        return 0d;
+        return DOUBLE_ZERO;
 
     }
 
@@ -56,9 +64,9 @@ public class Options {
 
         ConfigurationManager configurationManager = ConfigurationManager.getInstance();
         try {
-            return Double.parseDouble(configurationManager.getOptionValue("prediction_time"));
+            return Double.parseDouble(configurationManager.getOptionValue(PREDICTION_TIME));
         } catch (NoSuchOptionException e) {
-            log.error("No such options", e);
+            log.error(NO_SUCH_OPTIONS, e);
         }
         return DOUBLE_ZERO;
 
@@ -68,9 +76,9 @@ public class Options {
 
         ConfigurationManager configurationManager = ConfigurationManager.getInstance();
         try {
-            return Integer.parseInt(configurationManager.getOptionValue("packet_limit"));
+            return Integer.parseInt(configurationManager.getOptionValue(PACKET_LIMIT));
         } catch (NoSuchOptionException e) {
-            log.error("No such options", e);
+            log.error(NO_SUCH_OPTIONS, e);
         }
         return 0;
 
@@ -80,9 +88,9 @@ public class Options {
 
         ConfigurationManager configurationManager = ConfigurationManager.getInstance();
         try {
-            return Integer.parseInt(configurationManager.getOptionValue("number_of_values_for_trend"));
+            return Integer.parseInt(configurationManager.getOptionValue(NUMBER_OF_VALUES_FOR_TREND));
         } catch (NoSuchOptionException e) {
-            log.error("No such options", e);
+            log.error(NO_SUCH_OPTIONS, e);
         }
         return 0;
 

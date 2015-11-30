@@ -2,7 +2,7 @@
 <options>
     <option>
         <option_name>algorithm</option_name>
-        <option_value>linear_trend</option_value>
+        <option_value>LinearTrend</option_value>
     </option>
     <option>
         <option_name>time_series_interval</option_name>
