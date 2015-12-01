@@ -2,7 +2,7 @@ package com.kalashnikov.monitoring.algorithms;
 
 import java.util.ArrayList;
 
-public  class TimeSeriesManager {
+public class TimeSeriesManager {
 
     private ArrayList<Integer> timeSeries;
     private double period;

@@ -4,4 +4,5 @@ public interface AbstractAlgorithm {
 
     double predictNextValue();
     void setTimeSeriesManager(TimeSeriesManager timeSeriesManager);
+
 }

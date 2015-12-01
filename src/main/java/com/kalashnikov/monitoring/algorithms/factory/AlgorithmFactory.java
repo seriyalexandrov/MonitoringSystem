@@ -1,5 +1,7 @@
-package com.kalashnikov.monitoring.algorithms;
+package com.kalashnikov.monitoring.algorithms.factory;
 
+import com.kalashnikov.monitoring.algorithms.AbstractAlgorithm;
+import com.kalashnikov.monitoring.algorithms.TimeSeriesManager;
 import com.kalashnikov.monitoring.parser.wireshark.FinishedParser;
 import org.apache.log4j.Logger;
 
@@ -24,21 +26,25 @@ public class AlgorithmFactory extends Options {
     public static final String ACCESS_ERROR_DURING_LOADING_ALGORITHM_CLASS = "Access error during loading Algorithm class";
     public static final String COM_KALASHNIKOV_MONITORING_ALGORITHMS = "com.kalashnikov.monitoring.algorithms.";
     public static final String ERROR_WHILE_LAUNCHING_ALGORITHM = "Error while launching algorithm";
-    public final String PATH = "src\\main\\resources\\traffic.cap";
+    public static final String PATH = "src\\main\\resources\\traffic.cap";
 
     private final int SECOND = 1000;
 
     private static final Logger log = Logger.getLogger(AlgorithmFactory.class);
 
     public AbstractAlgorithm getAlgorithmClass() throws IOException, InstantiationException, IllegalAccessException {
+
         Class<AbstractAlgorithm> algorithm = null;
+
         try {
             algorithm = (Class<AbstractAlgorithm>) Class
                     .forName(COM_KALASHNIKOV_MONITORING_ALGORITHMS + algorithmType);
         } catch (ClassNotFoundException e) {
             log.error(ERROR_WHILE_LAUNCHING_ALGORITHM, e);
         }
+
         return algorithm.newInstance();
+
     }
 
     public void execute() {
@@ -72,6 +78,7 @@ public class AlgorithmFactory extends Options {
         }
 
         long endTime = System.currentTimeMillis() - startTime;
+
         log.info(EXECUTION_TIME + (double) endTime / SECOND + SEC);
 
     }
@@ -80,6 +87,7 @@ public class AlgorithmFactory extends Options {
 
         TimeSeriesManager manager = new TimeSeriesManager();
         ArrayList<Integer> partOfTimeSeries;
+
         if (timeSeries.size() == 0) {
             partOfTimeSeries = new ArrayList<>();
         } else if (timeSeries.size() < numberOfValuesForTrend) {
@@ -88,9 +96,11 @@ public class AlgorithmFactory extends Options {
             partOfTimeSeries = new ArrayList<>(timeSeries.
                     subList(timeSeries.size() - numberOfValuesForTrend, timeSeries.size() - 1));
         }
+
         manager.setTimeSeries(partOfTimeSeries);
         manager.setPeriod(timeInterval);
         AbstractAlgorithm algorithmClass = null;
+
         try {
             algorithmClass = getAlgorithmClass();
         } catch (IOException e) {
@@ -100,8 +110,11 @@ public class AlgorithmFactory extends Options {
         } catch (IllegalAccessException e) {
             log.error(ACCESS_ERROR_DURING_LOADING_ALGORITHM_CLASS, e);
         }
+
         algorithmClass.setTimeSeriesManager(manager);
+
         return algorithmClass.predictNextValue();
 
     }
+
 }

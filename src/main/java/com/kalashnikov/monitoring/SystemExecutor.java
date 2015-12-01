@@ -1,6 +1,6 @@
 package com.kalashnikov.monitoring;
 
-import com.kalashnikov.monitoring.algorithms.AlgorithmFactory;
+import com.kalashnikov.monitoring.algorithms.factory.AlgorithmFactory;
 import org.apache.log4j.Logger;
 
 public class SystemExecutor {
@@ -18,6 +18,7 @@ public class SystemExecutor {
 
         SystemExecutor systemExecutor = new SystemExecutor();
         systemExecutor.execute();
+
     }
 
 }

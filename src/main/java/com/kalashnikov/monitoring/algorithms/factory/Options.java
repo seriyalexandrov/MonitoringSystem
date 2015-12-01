@@ -1,4 +1,4 @@
-package com.kalashnikov.monitoring.algorithms;
+package com.kalashnikov.monitoring.algorithms.factory;
 
 import com.kalashnikov.monitoring.SystemExecutor;
 import com.kalashnikov.monitoring.configurator.jaxb.ConfigurationManager;

@@ -51,4 +51,5 @@ public class FinishedParser implements Runnable {
             parser = new ParserForWireSharkFiles(lastPackage, maxTime, br);
         }
     }
+
 }
