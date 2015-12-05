@@ -1,4 +1,4 @@
-package com.kalashnikov.monitoring.algorithm.linear.trend;
+package com.kalashnikov.monitoring.algorithms;
 
 import java.util.ArrayList;
 
@@ -9,7 +9,7 @@ public class TimeSeriesManager {
 
     public  TimeSeriesManager() {
 
-        timeSeries = new ArrayList<Integer>();
+        timeSeries = new ArrayList<>();
 
     }
 

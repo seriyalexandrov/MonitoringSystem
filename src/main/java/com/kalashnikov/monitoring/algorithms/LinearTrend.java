@@ -1,6 +1,6 @@
-package com.kalashnikov.monitoring.algorithm.linear.trend;
+package com.kalashnikov.monitoring.algorithms;
 
-public class LinearTrend {
+public class LinearTrend implements AbstractAlgorithm {
 
     private TimeSeriesManager timeSeriesManager;
 
@@ -16,14 +16,9 @@ public class LinearTrend {
 
     private double shift;
 
-    public LinearTrend(TimeSeriesManager timeSeriesManager) {
+    public void setTimeSeriesManager(TimeSeriesManager timeSeriesManager) {
 
         this.timeSeriesManager = timeSeriesManager;
-        calculateAverageValue();
-        calculateStandardDeviation();
-        calculateCorrelationCoefficient();
-        calculateRegressionCoefficient();
-        calculateShift();
 
     }
 
@@ -86,7 +81,14 @@ public class LinearTrend {
 
     }
 
+    @Override
     public double predictNextValue() {
+
+        calculateAverageValue();
+        calculateStandardDeviation();
+        calculateCorrelationCoefficient();
+        calculateRegressionCoefficient();
+        calculateShift();
 
         return regressionCoefficient * (timeSeriesManager.getTimeSeries().size() * timeSeriesManager.getPeriod()) +
                 shift;
