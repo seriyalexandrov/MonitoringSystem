@@ -5,107 +5,146 @@ import org.apache.log4j.Logger;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
-class ParserForWireSharkFiles {
+public class ParserForWireSharkFiles {
 
 
     private static final Logger log = Logger.getLogger(ParserForWireSharkFiles.class);
     private BufferedReader bufferedReader;
     private final String REGEX = "^No\\. +Time +Source +Destination +Protocol +$";
-    public static final int ERROR_VALUE = -2;
-    public static final int END_OF_FILE_VALUE = -1;
-    public static final String FIRST_PACKAGE_INITIALIZATION = "firstPackage";
+    private static final int NUMBER_OF_USEFUL_STRINGS = 2;
     private static final String READING_ERROR = "Reading error";
-    private String firstPackage;
-    private String lastPackage;
+    private PackageFromWireShark firstPackage;
+    private PackageFromWireShark lastPackage;
     private double maxTime;
-    private int globalCounter;
+    private double timeInterval;
+    private final int MILLISECONDS_IN_SECOND = 1000;
 
 
-    ParserForWireSharkFiles(String firstPackage, double maxTime, BufferedReader bufferedReader) {
+    public ParserForWireSharkFiles(PackageFromWireShark firstPackage, double maxTime, BufferedReader bufferedReader, double timeInterval) {
+
         this.firstPackage = firstPackage;
         this.maxTime = maxTime;
         this.bufferedReader = bufferedReader;
+        this.timeInterval = timeInterval;
 
     }
 
 
-    public int getNumberOfPackages() {
-        int flag = 0;
-        int counter;
+    public ArrayList<PackageFromWireShark> getArrayListOfPackages() {
+
+        ArrayList<PackageFromWireShark> packages = new ArrayList<>();
+        PackageFromWireShark pack = null;
+        boolean stringLikeRegexpFlag = false;
         String line;
         double time;
-        if (firstPackage == null) {
-            return END_OF_FILE_VALUE;
-        }
-        if (firstPackage.equals(FIRST_PACKAGE_INITIALIZATION)) {
-            firstPackage = getFirstPackage();
-        }
-        if (!checkFirstPackage(firstPackage, maxTime)) {
-            lastPackage = firstPackage;
-            return 0;
-        }
-        counter = globalCounter;
-        try {
-            while ((line = bufferedReader.readLine()) != null) {
-                if (flag != 0) {
-                    time = getTime(line);
-                    if (time < maxTime) {
-                        counter++;
-                        flag = 0;
-                    } else {
-                        break;
+        String[] stringsWithInformation = new String[NUMBER_OF_USEFUL_STRINGS];
+        long startTime = System.currentTimeMillis();
+        long currentTime = System.currentTimeMillis();
+
+
+        while ((currentTime - startTime) < timeInterval * MILLISECONDS_IN_SECOND) {
+
+            if (firstPackage == null) {
+                firstPackage = getFirstPackage();
+            }
+
+            if (firstPackage != null) {
+                if (!checkFirstPackage(firstPackage, maxTime)) {
+                    lastPackage = firstPackage;
+                    return packages;
+                }
+                packages.add(firstPackage);
+                firstPackage = null;
+            }
+
+            try {
+                while ((line = bufferedReader.readLine()) != null) {
+
+                    if (stringLikeRegexpFlag) {
+
+                        stringsWithInformation[0] = line;
+                        bufferedReader.readLine();
+                        stringsWithInformation[1] = bufferedReader.readLine();
+                        pack = parseStrings(stringsWithInformation);
+                        time = pack.getTime();
+
+                        if (time < maxTime) {
+                            packages.add(pack);
+                            stringLikeRegexpFlag = false;
+                        } else {
+                            lastPackage = pack;
+                            return packages;
+                        }
+                    }
+
+                    if (line.matches(REGEX)) {
+                        stringLikeRegexpFlag = true;
                     }
                 }
-                if (line.matches(REGEX)) {
-                    flag++;
-                }
+                currentTime = System.currentTimeMillis();
+
+            } catch (IOException e) {
+                log.error(READING_ERROR, e);
+                return null;
             }
-            lastPackage = line;
-            return counter;
-        } catch (IOException e) {
-            log.error(READING_ERROR,e);
-            return ERROR_VALUE;
         }
+        lastPackage = null;
+        return packages;
     }
 
-    private double getTime(String line) {
+    private boolean checkFirstPackage(PackageFromWireShark pack, double interval) {
 
-        String[] dividedString;
-        dividedString = line.split(" +");
-        return Double.parseDouble(dividedString[2]);
-    }
-
-    private boolean checkFirstPackage(String line, double interval) {
-        double time = getTime(line);
+        double time = pack.getTime();
         if (time < interval) {
-            globalCounter++;
             return true;
         }
         return false;
     }
 
-    private String getFirstPackage() {
+    private PackageFromWireShark getFirstPackage() {
+        String[] stringsWithInformation = new String[NUMBER_OF_USEFUL_STRINGS];
         String line;
-        int flag = 0;
+        boolean stringLikeRegexpFlag = false;
         try {
             while ((line = bufferedReader.readLine()) != null) {
-                if (flag != 0) {
-                    return line;
+                if (stringLikeRegexpFlag) {
+                    stringsWithInformation[0] = line;
+                    bufferedReader.readLine();
+                    line = bufferedReader.readLine();
+                    stringsWithInformation[1] = line;
+                    return parseStrings(stringsWithInformation);
                 }
                 if (line.matches(REGEX)) {
-                    flag++;
+                    stringLikeRegexpFlag = true;
                 }
             }
-            return line; //line = null
+            return null;
         } catch (IOException e) {
-            log.error(READING_ERROR,e);
+            log.error(READING_ERROR, e);
             return null;
         }
 
     }
 
-    public String getLastPackage() {
+    private PackageFromWireShark parseStrings(String[] strings) {
+
+        String information = strings[0];
+        String[] dividedInformation = information.split(" +");
+        PackageFromWireShark pack = new PackageFromWireShark(Integer.parseInt(dividedInformation[1]));
+        pack.setTime(Double.parseDouble(dividedInformation[2]));
+        pack.setSource(dividedInformation[3]);
+        pack.setDestination(dividedInformation[4]);
+        pack.setProtocol(dividedInformation[5]);
+        information = strings[1];
+        dividedInformation = information.split(" +");
+        pack.setBytes(Integer.parseInt(dividedInformation[2]));
+        return pack;
+
+    }
+
+    public PackageFromWireShark getLastPackage() {
         return lastPackage;
     }
 }

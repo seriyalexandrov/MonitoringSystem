@@ -3,10 +3,15 @@ package com.kalashnikov.monitoring.parser.wireshark;
 
 public class PackageFromWireShark {
     public PackageFromWireShark(int id) {
+
         this.id = id;
     }
 
+
     private int id;
+    private int bytes;
+//    private int seq;
+//    private int ack;
     private double time;
     private String source;
     private String destination;
@@ -17,26 +22,32 @@ public class PackageFromWireShark {
     }
 
     public double getTime() {
+
         return time;
     }
 
     public String getSource() {
+
         return source;
     }
 
     public String getDestination() {
+
         return destination;
     }
 
     public String getProtocol() {
+
         return protocol;
     }
 
     public void setTime(double time) {
+
         this.time = time;
     }
 
     public void setSource(String source) {
+
         this.source = source;
     }
 
@@ -45,10 +56,46 @@ public class PackageFromWireShark {
     }
 
     public void setProtocol(String protocol) {
+
         this.protocol = protocol;
     }
 
-    public String toString() {
-        return "No.: " + id + "; Time = " + time + "; Source: " + source + "; Destination: " + destination + "; Protocol: " + protocol;
+    public int getBytes() {
+        return bytes;
     }
+
+    public void setBytes(int bytes) {
+        this.bytes = bytes;
+    }
+
+//    public int getSeq() {
+//        return seq;
+//    }
+//
+//    public void setSeq(int seq) {
+//        this.seq = seq;
+//    }
+//
+//    public int getAck() {
+//        return ack;
+//    }
+//
+//    public void setAck(int ack) {
+//        this.ack = ack;
+//    }
+
+    @Override
+    public String toString() {
+        return "PackageFromWireShark{" +
+                "id=" + id +
+                ", bytes=" + bytes +
+//                ", seq=" + seq +
+//                ", ack=" + ack +
+                ", time=" + time +
+                ", source='" + source + '\'' +
+                ", destination='" + destination + '\'' +
+                ", protocol='" + protocol + '\'' +
+                '}';
+    }
+
 }

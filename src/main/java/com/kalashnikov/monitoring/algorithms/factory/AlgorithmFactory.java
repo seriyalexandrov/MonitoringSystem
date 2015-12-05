@@ -27,6 +27,7 @@ public class AlgorithmFactory extends Options {
     public static final String COM_KALASHNIKOV_MONITORING_ALGORITHMS = "com.kalashnikov.monitoring.algorithms.";
     public static final String ERROR_WHILE_LAUNCHING_ALGORITHM = "Error while launching algorithm";
     public static final String PATH = "src\\main\\resources\\traffic.cap";
+    public static final int NUMBER_OF_INTERVALS = 5;
 
     private final int SECOND = 1000;
 
@@ -53,7 +54,7 @@ public class AlgorithmFactory extends Options {
         ArrayList<Integer> timeSeries = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(PATH))) {
-            FinishedParser parser = new FinishedParser(br, timeSeries, timeSeriesInterval);
+            FinishedParser parser = new FinishedParser(br, timeSeries, timeSeriesInterval,NUMBER_OF_INTERVALS);
             Thread thread = new Thread(parser);
             thread.start();
 

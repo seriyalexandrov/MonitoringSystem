@@ -13,43 +13,41 @@ public class FinishedParser implements Runnable {
     private ArrayList values;
     private BufferedReader br;
     private double timeInterval;
+    private int numberOfIntervals;
     private final int MILLISECONDS_IN_SECOND = 1000;
 
 
-    public FinishedParser(BufferedReader br, ArrayList values, double timeInterval) {
+    public FinishedParser(BufferedReader br, ArrayList values, double timeInterval, int numberOfIntervals) {
         this.timeInterval = timeInterval;
         this.values = values;
         this.br = br;
+        this.numberOfIntervals = numberOfIntervals;
     }
 
 
     @Override
     public void run() {
-        setValues();
+            setValues();
     }
 
 
     private synchronized void setValues() {
-        int numberOfPackages;
-        double maxTime;
-        String lastPackage;
-        ParserForWireSharkFiles parser;
-        maxTime = timeInterval;
-        parser = new ParserForWireSharkFiles(ParserForWireSharkFiles.FIRST_PACKAGE_INITIALIZATION, maxTime, br);
-        while (true) {
-            try {
-                Thread.sleep((long) (timeInterval * MILLISECONDS_IN_SECOND));
-            } catch (InterruptedException e) {
-                log.error(e);
-            }
-            numberOfPackages = parser.getNumberOfPackages();
-            if (numberOfPackages == ParserForWireSharkFiles.END_OF_FILE_VALUE) {
+
+        ArrayList<PackageFromWireShark> arrayListOfPackages;
+        double maxTime = timeInterval;
+        PackageFromWireShark lastPackage;
+        ParserForWireSharkFiles parser = new ParserForWireSharkFiles(null, maxTime, br, timeInterval);
+        long startTime = System.currentTimeMillis();
+        long currentTime = System.currentTimeMillis();
+        for(int i = 0;i<numberOfIntervals;i++) {
+            if (Thread.interrupted()) {
                 break;
             }
-            values.add(numberOfPackages);
+            arrayListOfPackages = parser.getArrayListOfPackages();
+            values.add(arrayListOfPackages);
             maxTime += timeInterval;
             lastPackage = parser.getLastPackage();
-            parser = new ParserForWireSharkFiles(lastPackage, maxTime, br);
+            parser = new ParserForWireSharkFiles(lastPackage, maxTime, br, timeInterval);
         }
     }
 
