@@ -3,6 +3,7 @@ package com.kalashnikov.monitoring.algorithms.factory;
 import com.kalashnikov.monitoring.algorithms.AbstractAlgorithm;
 import com.kalashnikov.monitoring.algorithms.TimeSeriesManager;
 import com.kalashnikov.monitoring.parser.wireshark.FinishedParser;
+import com.kalashnikov.monitoring.parser.wireshark.PackageFromWireShark;
 import org.apache.log4j.Logger;
 
 import java.io.BufferedReader;
@@ -51,10 +52,10 @@ public class AlgorithmFactory extends Options {
     public void execute() {
 
         long startTime = System.currentTimeMillis();
-        ArrayList<Integer> timeSeries = new ArrayList<>();
+        ArrayList<ArrayList<PackageFromWireShark>> timeSeries = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(PATH))) {
-            FinishedParser parser = new FinishedParser(br, timeSeries, timeSeriesInterval,NUMBER_OF_INTERVALS);
+            FinishedParser parser = new FinishedParser(br, timeSeries, timeSeriesInterval, NUMBER_OF_INTERVALS);
             Thread thread = new Thread(parser);
             thread.start();
 
@@ -84,7 +85,7 @@ public class AlgorithmFactory extends Options {
 
     }
 
-    private double function(ArrayList<Integer> timeSeries, double timeInterval) {
+    private double function(ArrayList<ArrayList<PackageFromWireShark>> timeSeries, double timeInterval) {
 
         TimeSeriesManager manager = new TimeSeriesManager();
         ArrayList<Integer> partOfTimeSeries;
@@ -92,10 +93,16 @@ public class AlgorithmFactory extends Options {
         if (timeSeries.size() == 0) {
             partOfTimeSeries = new ArrayList<>();
         } else if (timeSeries.size() < numberOfValuesForTrend) {
-            partOfTimeSeries = new ArrayList<>(timeSeries.subList(0, timeSeries.size() - 1));
+            partOfTimeSeries = new ArrayList<>();
+            for (ArrayList<PackageFromWireShark> list : timeSeries.subList(0, timeSeries.size() - 1)) {
+                partOfTimeSeries.add(list.size());
+            }
         } else {
-            partOfTimeSeries = new ArrayList<>(timeSeries.
-                    subList(timeSeries.size() - numberOfValuesForTrend, timeSeries.size() - 1));
+            partOfTimeSeries = new ArrayList<>();
+            for (ArrayList<PackageFromWireShark> list : timeSeries.
+                    subList(timeSeries.size() - numberOfValuesForTrend, timeSeries.size() - 1)) {
+                partOfTimeSeries.add(list.size());
+            }
         }
 
         manager.setTimeSeries(partOfTimeSeries);

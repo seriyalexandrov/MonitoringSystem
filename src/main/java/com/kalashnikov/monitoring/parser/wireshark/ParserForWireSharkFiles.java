@@ -34,6 +34,7 @@ public class ParserForWireSharkFiles {
 
     public ArrayList<PackageFromWireShark> getArrayListOfPackages() {
 
+
         ArrayList<PackageFromWireShark> packages = new ArrayList<>();
         PackageFromWireShark pack = null;
         boolean stringLikeRegexpFlag = false;
