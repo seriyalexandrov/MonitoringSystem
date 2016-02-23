@@ -1,4 +1,4 @@
-import com.kalashnikov.monitoring.parser.wireshark.FinishedParser;
+import com.kalashnikov.monitoring.parser.wireshark.Parser;
 import com.kalashnikov.monitoring.parser.wireshark.PackageFromWireShark;
 import org.junit.Test;
 
@@ -8,26 +8,26 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 
-public class FinishedParserTest {
+public class ParserTest {
 
 
-     public final String path = "src\\main\\resources\\traffic.cap";
-    //public final String path = "D:\\GitHub\\traffic.txt";
-    public final double timeInterval = 1;
+    public final String path = "src\\main\\resources\\traffic.cap";
+    //    public final String path = "D:\\GitHub\\traffic.txt";
+    public final double timeInterval = 10;
 
     @Test
     public void parserTest() throws IOException, InterruptedException {
         ArrayList<ArrayList<PackageFromWireShark>> values = new ArrayList();
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
 
-            FinishedParser parser = new FinishedParser(br, values, timeInterval, 15);
+            Parser parser = new Parser(br, values, timeInterval, 10);
             Thread thread = new Thread(parser);
             thread.start();
             thread.join();
         }
         int counter = 0;
         for (ArrayList<PackageFromWireShark> al : values) {
-            System.out.println(al.size());
+            System.out.println("Test:" + al.size());
             counter += al.size();
         }
         System.out.println("Number");

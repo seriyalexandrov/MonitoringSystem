@@ -6,10 +6,10 @@ import java.io.BufferedReader;
 import java.util.ArrayList;
 
 
-public class FinishedParser implements Runnable {
+public class Parser implements Runnable {
 
 
-    private static final Logger log = Logger.getLogger(FinishedParser.class);
+    private static final Logger log = Logger.getLogger(Parser.class);
     private ArrayList values;
     private BufferedReader br;
     private double timeInterval;
@@ -17,7 +17,7 @@ public class FinishedParser implements Runnable {
     private final int MILLISECONDS_IN_SECOND = 1000;
 
 
-    public FinishedParser(BufferedReader br, ArrayList values, double timeInterval, int numberOfIntervals) {
+    public Parser(BufferedReader br, ArrayList values, double timeInterval, int numberOfIntervals) {
         this.timeInterval = timeInterval;
         this.values = values;
         this.br = br;
@@ -27,7 +27,7 @@ public class FinishedParser implements Runnable {
 
     @Override
     public void run() {
-            setValues();
+        setValues();
     }
 
 
@@ -37,9 +37,7 @@ public class FinishedParser implements Runnable {
         double maxTime = timeInterval;
         PackageFromWireShark lastPackage;
         ParserForWireSharkFiles parser = new ParserForWireSharkFiles(null, maxTime, br, timeInterval);
-        long startTime = System.currentTimeMillis();
-        long currentTime = System.currentTimeMillis();
-        for(int i = 0;i<numberOfIntervals;i++) {
+        for (int i = 0; i < numberOfIntervals; i++) {
             if (Thread.interrupted()) {
                 break;
             }

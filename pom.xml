@@ -52,6 +52,12 @@
             <artifactId>jboss-logging</artifactId>
             <version>3.2.0.Final</version>
         </dependency>
+        <dependency>
+            <groupId>org.glassfish.main.extras</groupId>
+            <artifactId>glassfish-embedded-all</artifactId>
+            <version>4.0</version>
+            <scope>provided</scope>
+        </dependency>
 
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>

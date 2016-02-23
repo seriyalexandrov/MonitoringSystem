@@ -2,7 +2,7 @@ package com.kalashnikov.monitoring.algorithms.factory;
 
 import com.kalashnikov.monitoring.algorithms.AbstractAlgorithm;
 import com.kalashnikov.monitoring.algorithms.TimeSeriesManager;
-import com.kalashnikov.monitoring.parser.wireshark.FinishedParser;
+import com.kalashnikov.monitoring.parser.wireshark.Parser;
 import com.kalashnikov.monitoring.parser.wireshark.PackageFromWireShark;
 import org.apache.log4j.Logger;
 
@@ -28,7 +28,7 @@ public class AlgorithmFactory extends Options {
     public static final String COM_KALASHNIKOV_MONITORING_ALGORITHMS = "com.kalashnikov.monitoring.algorithms.";
     public static final String ERROR_WHILE_LAUNCHING_ALGORITHM = "Error while launching algorithm";
     public static final String PATH = "src\\main\\resources\\traffic.cap";
-    public static final int NUMBER_OF_INTERVALS = 5;
+    public static final int NUMBER_OF_INTERVALS = 10;
 
     private final int SECOND = 1000;
 
@@ -54,8 +54,9 @@ public class AlgorithmFactory extends Options {
         long startTime = System.currentTimeMillis();
         ArrayList<ArrayList<PackageFromWireShark>> timeSeries = new ArrayList<>();
 
+
         try (BufferedReader br = new BufferedReader(new FileReader(PATH))) {
-            FinishedParser parser = new FinishedParser(br, timeSeries, timeSeriesInterval, NUMBER_OF_INTERVALS);
+            Parser parser = new Parser(br, timeSeries, timeSeriesInterval, NUMBER_OF_INTERVALS);
             Thread thread = new Thread(parser);
             thread.start();
 
@@ -65,8 +66,11 @@ public class AlgorithmFactory extends Options {
                 if (predictedValue > packetLimit) {
                     log.warn(LIMIT_IS_EXCEEDED_GET_READY_TO_IT);
                 }
-                System.out.println(TIME_SERIES + timeSeries);
-                System.out.println(PREDICTED_VALUE + predictedValue);
+                System.out.print(TIME_SERIES+":");
+                for(ArrayList<PackageFromWireShark> list:timeSeries){
+                    System.out.print(" " + list.size());
+                }
+                System.out.println("\n"+ PREDICTED_VALUE + predictedValue);
             }
 
             thread.join();

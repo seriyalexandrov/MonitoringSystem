@@ -1,7 +1,7 @@
 package com.kalashnikov.monitoring.parser.wireshark;
 
 
-public class PackageFromWireShark {
+ public class PackageFromWireShark {
     public PackageFromWireShark(int id) {
 
         this.id = id;
@@ -10,8 +10,6 @@ public class PackageFromWireShark {
 
     private int id;
     private int bytes;
-//    private int seq;
-//    private int ack;
     private double time;
     private String source;
     private String destination;
@@ -68,29 +66,13 @@ public class PackageFromWireShark {
         this.bytes = bytes;
     }
 
-//    public int getSeq() {
-//        return seq;
-//    }
-//
-//    public void setSeq(int seq) {
-//        this.seq = seq;
-//    }
-//
-//    public int getAck() {
-//        return ack;
-//    }
-//
-//    public void setAck(int ack) {
-//        this.ack = ack;
-//    }
+
 
     @Override
     public String toString() {
         return "PackageFromWireShark{" +
                 "id=" + id +
                 ", bytes=" + bytes +
-//                ", seq=" + seq +
-//                ", ack=" + ack +
                 ", time=" + time +
                 ", source='" + source + '\'' +
                 ", destination='" + destination + '\'' +

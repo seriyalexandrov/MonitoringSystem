@@ -7,7 +7,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ParserForWireSharkFiles {
+class ParserForWireSharkFiles {
 
 
     private static final Logger log = Logger.getLogger(ParserForWireSharkFiles.class);
@@ -15,6 +15,7 @@ public class ParserForWireSharkFiles {
     private final String REGEX = "^No\\. +Time +Source +Destination +Protocol +$";
     private static final int NUMBER_OF_USEFUL_STRINGS = 2;
     private static final String READING_ERROR = "Reading error";
+    private static final String SLEEP_ERROR = "Sleep error";
     private PackageFromWireShark firstPackage;
     private PackageFromWireShark lastPackage;
     private double maxTime;
@@ -42,56 +43,77 @@ public class ParserForWireSharkFiles {
         double time;
         String[] stringsWithInformation = new String[NUMBER_OF_USEFUL_STRINGS];
         long startTime = System.currentTimeMillis();
-        long currentTime = System.currentTimeMillis();
+        long currentTime;
+        long sleepTime;
+        if (firstPackage == null) {
+            firstPackage = getFirstPackage();
+        }
 
-
-        while ((currentTime - startTime) < timeInterval * MILLISECONDS_IN_SECOND) {
-
-            if (firstPackage == null) {
-                firstPackage = getFirstPackage();
-            }
-
-            if (firstPackage != null) {
-                if (!checkFirstPackage(firstPackage, maxTime)) {
-                    lastPackage = firstPackage;
-                    return packages;
+        if (firstPackage != null) {
+            if (!checkFirstPackage(firstPackage, maxTime)) {
+                lastPackage = firstPackage;
+                try {
+                    currentTime = System.currentTimeMillis();
+                    sleepTime = (long) timeInterval * MILLISECONDS_IN_SECOND - (currentTime - startTime);
+                    if (sleepTime > 0) {
+                        Thread.sleep(sleepTime);
+                    }
+                } catch (InterruptedException e) {
+                    log.error(SLEEP_ERROR, e);
                 }
-                packages.add(firstPackage);
-                firstPackage = null;
+                return packages;
             }
+            packages.add(firstPackage);
+            firstPackage = null;
+        }
 
-            try {
-                while ((line = bufferedReader.readLine()) != null) {
+        try {
+            while ((line = bufferedReader.readLine()) != null) {
 
-                    if (stringLikeRegexpFlag) {
+                if (stringLikeRegexpFlag) {
 
-                        stringsWithInformation[0] = line;
-                        bufferedReader.readLine();
-                        stringsWithInformation[1] = bufferedReader.readLine();
-                        pack = parseStrings(stringsWithInformation);
-                        time = pack.getTime();
+                    stringsWithInformation[0] = line;
+                    bufferedReader.readLine();
+                    stringsWithInformation[1] = bufferedReader.readLine();
+                    pack = parseStrings(stringsWithInformation);
+                    time = pack.getTime();
 
-                        if (time < maxTime) {
-                            packages.add(pack);
-                            stringLikeRegexpFlag = false;
-                        } else {
-                            lastPackage = pack;
-                            return packages;
+                    if (time < maxTime) {
+                        packages.add(pack);
+                        stringLikeRegexpFlag = false;
+                    } else {
+                        lastPackage = pack;
+                        try {
+                            currentTime = System.currentTimeMillis();
+                            sleepTime = (long) timeInterval * MILLISECONDS_IN_SECOND - (currentTime - startTime);
+                            if (sleepTime > 0) {
+                                Thread.sleep(sleepTime);
+                            }
+                        } catch (InterruptedException e) {
+                            log.error(SLEEP_ERROR, e);
                         }
-                    }
-
-                    if (line.matches(REGEX)) {
-                        stringLikeRegexpFlag = true;
+                        return packages;
                     }
                 }
-                currentTime = System.currentTimeMillis();
 
-            } catch (IOException e) {
-                log.error(READING_ERROR, e);
-                return null;
+                if (line.matches(REGEX)) {
+                    stringLikeRegexpFlag = true;
+                }
             }
+        } catch (IOException e) {
+            log.error(READING_ERROR, e);
+            return null;
         }
         lastPackage = null;
+        try {
+            currentTime = System.currentTimeMillis();
+            sleepTime = (long) timeInterval * MILLISECONDS_IN_SECOND - (currentTime - startTime);
+            if (sleepTime > 0) {
+                Thread.sleep(sleepTime);
+            }
+        } catch (InterruptedException e) {
+            log.error(SLEEP_ERROR, e);
+        }
         return packages;
     }
 
