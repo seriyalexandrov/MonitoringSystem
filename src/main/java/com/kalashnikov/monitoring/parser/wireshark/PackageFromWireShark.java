@@ -1,7 +1,7 @@
 package com.kalashnikov.monitoring.parser.wireshark;
 
 
-public class PackageFromWireShark {
+ public class PackageFromWireShark {
     public PackageFromWireShark(int id) {
 
         this.id = id;
@@ -65,6 +65,7 @@ public class PackageFromWireShark {
     public void setBytes(int bytes) {
         this.bytes = bytes;
     }
+
 
 
     @Override

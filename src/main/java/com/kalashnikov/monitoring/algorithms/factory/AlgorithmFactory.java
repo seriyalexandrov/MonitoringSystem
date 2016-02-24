@@ -28,7 +28,7 @@ public class AlgorithmFactory extends Options {
     public static final String COM_KALASHNIKOV_MONITORING_ALGORITHMS = "com.kalashnikov.monitoring.algorithms.";
     public static final String ERROR_WHILE_LAUNCHING_ALGORITHM = "Error while launching algorithm";
     public static final String PATH = "src\\main\\resources\\traffic.cap";
-    //    public static final String PATH = "D:\\GitHub\\traffic.txt";
+//    public static final String PATH = "D:\\GitHub\\traffic.txt";
     public static final int NUMBER_OF_INTERVALS = 10;
 
     private final int SECOND = 1000;
@@ -67,11 +67,11 @@ public class AlgorithmFactory extends Options {
                 if (predictedValue > packetLimit) {
                     log.warn(LIMIT_IS_EXCEEDED_GET_READY_TO_IT);
                 }
-                System.out.print(TIME_SERIES + ":");
-                for (ArrayList<PackageFromWireShark> list : timeSeries) {
+                System.out.print(TIME_SERIES+":");
+                for(ArrayList<PackageFromWireShark> list:timeSeries){
                     System.out.print(" " + list.size());
                 }
-                System.out.println("\n" + PREDICTED_VALUE + predictedValue);
+                System.out.println("\n"+ PREDICTED_VALUE + predictedValue);
             }
 
             thread.join();
