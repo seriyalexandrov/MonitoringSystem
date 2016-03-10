@@ -10,7 +10,7 @@ import java.util.List;
 
 @Stateless
 public class UserBean {
-    @PersistenceContext
+    @PersistenceContext(unitName = "NewPersistenceUnit")
     private EntityManager entityManager;
 
     public UsersEntity saveNewUser(UsersEntity user){
@@ -30,7 +30,7 @@ public class UserBean {
     }
 
     public List<UsersEntity> getAllUsers(){
-        TypedQuery<UsersEntity> namedQuery = entityManager.createNamedQuery("getAllUsers", UsersEntity.class);
+        TypedQuery<UsersEntity> namedQuery = entityManager.createNamedQuery("UsersEntity.getAll", UsersEntity.class);
         return namedQuery.getResultList();
     }
 

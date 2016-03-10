@@ -2,39 +2,41 @@ package com.kalashnikov.monitoring.entities;
 
 import javax.persistence.*;
 
+
 @Entity
 @Table(name = "USERS", schema = "PUBLIC", catalog = "GLASSFISHDB")
-@NamedQueries({
-        @NamedQuery(name = "getAllUsers", query = "SELECT u FROM UsersEntity u"),
-        @NamedQuery(name = "getUser", query = "SELECT u FROM UsersEntity u WHERE u.userName='stapko'")
-})
+@NamedQuery(name = "UsersEntity.getAll", query = "Select u from UsersEntity u")
 public class UsersEntity {
-    private int userId;
-    private String userName;
-    private String password;
+    public UsersEntity() {
+
+    }
 
     @Id
-    @Column(name = "USER_ID")
-    public int getUserId() {
-        return userId;
+    @Column(name = "USERID")
+    private int userid;
+
+    public int getUserid() {
+        return userid;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUserid(int userid) {
+        this.userid = userid;
     }
 
-    @Basic
-    @Column(name = "USER_NAME")
-    public String getUserName() {
-        return userName;
+    @Column(name = "USERNAME")
+    private String username;
+
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    @Basic
     @Column(name = "PASSWORD")
+    private String password;
+
     public String getPassword() {
         return password;
     }
@@ -50,8 +52,8 @@ public class UsersEntity {
 
         UsersEntity that = (UsersEntity) o;
 
-        if (userId != that.userId) return false;
-        if (userName != null ? !userName.equals(that.userName) : that.userName != null) return false;
+        if (userid != that.userid) return false;
+        if (username != null ? !username.equals(that.username) : that.username != null) return false;
         if (password != null ? !password.equals(that.password) : that.password != null) return false;
 
         return true;
@@ -59,8 +61,8 @@ public class UsersEntity {
 
     @Override
     public int hashCode() {
-        int result = userId;
-        result = 31 * result + (userName != null ? userName.hashCode() : 0);
+        int result = userid;
+        result = 31 * result + (username != null ? username.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         return result;
     }

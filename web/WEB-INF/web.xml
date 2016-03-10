@@ -3,6 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
+
     <servlet>
         <servlet-name>hello</servlet-name>
         <jsp-file>index.jsp</jsp-file>
@@ -11,6 +12,25 @@
         <servlet-name>hello</servlet-name>
         <url-pattern>/index.jsp</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetListServlet</servlet-name>
+        <servlet-class>com.kalashnikov.monitoring.servlets.GetListServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetListServlet</servlet-name>
+        <url-pattern>/list</url-pattern>
+    </servlet-mapping>
+
+    <!--<servlet>-->
+        <!--<servlet-name>AddAndEditUserServlet</servlet-name>-->
+        <!--<servlet-class>com.kalashnikov.monitoring.servlets.AddAndEditUserServlet</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>AddAndEditUserServlet</servlet-name>-->
+        <!--<url-pattern>/add</url-pattern>-->
+    <!--</servlet-mapping>-->
+
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
