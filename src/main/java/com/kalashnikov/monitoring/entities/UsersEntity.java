@@ -13,25 +13,25 @@ public class UsersEntity {
 
     @Id
     @Column(name = "USERID")
-    private int userid;
+    private int userId;
 
-    public int getUserid() {
-        return userid;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUserid(int userid) {
-        this.userid = userid;
+    public void setUserId(int userid) {
+        this.userId = userid;
     }
 
     @Column(name = "USERNAME")
-    private String username;
+    private String userName;
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String username) {
+        this.userName = username;
     }
 
     @Column(name = "PASSWORD")
@@ -52,8 +52,8 @@ public class UsersEntity {
 
         UsersEntity that = (UsersEntity) o;
 
-        if (userid != that.userid) return false;
-        if (username != null ? !username.equals(that.username) : that.username != null) return false;
+        if (userId != that.userId) return false;
+        if (userName != null ? !userName.equals(that.userName) : that.userName != null) return false;
         if (password != null ? !password.equals(that.password) : that.password != null) return false;
 
         return true;
@@ -61,8 +61,8 @@ public class UsersEntity {
 
     @Override
     public int hashCode() {
-        int result = userid;
-        result = 31 * result + (username != null ? username.hashCode() : 0);
+        int result = userId;
+        result = 31 * result + (userName != null ? userName.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         return result;
     }
