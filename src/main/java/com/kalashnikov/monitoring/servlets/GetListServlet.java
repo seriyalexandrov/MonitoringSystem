@@ -20,6 +20,7 @@ public class GetListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
+        System.out.println(userBean);
         List<UsersEntity> allUsers = userBean.getAllUsers();
         req.setAttribute("users",allUsers);
         req.getRequestDispatcher("/list.jsp").forward(req,resp);

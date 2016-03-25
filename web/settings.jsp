@@ -15,7 +15,7 @@
 </head>
 <body>
 
-<div class="col-md-12">
+<<div class="col-md-12">
     <div class="secHeader">
         <h1 class="text-center">Monitoring System</h1>
     </div>
@@ -41,6 +41,7 @@
         </div>
     </div>
 </div>
+
 
 <div class="container">
   <form action="selectedSettings.jsp" method="post">
