@@ -8,6 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://code.highcharts.com/highcharts.js"></script>
+    <script type="text/javascript" src="https://code.highcharts.com/modules/exporting.js"></script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -51,17 +54,16 @@
 <div class="container">
     <div class="row-fluid">
         <h3>Hello, guest!</h3>
-        <form class="form-inline">
+        <form class="form-inline" method="post" action="j_security_check">
             <div class="form-group">
-                <label for="InputName">Name</label>
-                <input type="text" class="form-control" id="InputName" placeholder="Jane Doe">
+                <label for="InputLogin">Login</label>
+                <input type="text" class="form-control" name="j_username" id="InputLogin" placeholder="bigboss">
             </div>
             <div class="form-group">
-                <label for="InputEmail">Email</label>
-                <input type="email" class="form-control" id="InputEmail" placeholder="jane.doe@example.com">
+                <label for="InputPassword">Password</label>
+                <input type="password" class="form-control" name="j_password" id="InputPassword" placeholder="******">
             </div>
-            <button class="btn btn-success">Sign in</button>
-            <button class="btn btn-success">Registration</button>
+            <button type="submit" class="btn btn-success">Sign in</button>
         </form>
     </div>
 
@@ -77,23 +79,48 @@
                     <div id="1plot" class="container-fluid">
                         <div class="row">
                             <div class="col-md-12">
-                                <h1 class="text-md-center">f(x) = cos(x) </h1>
-                                <div class="media-heading">
-                                    <img src="images/proj/plot.png" class="img-responsive center-block">
-                                </div>
+                                <h1 class="text-md-center">First chart</h1>
+                                <div class="media-heading" id="container1"> </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
+
+                <script type="text/javascript">
+                    $(function () {
+                        $('#container1').highcharts({
+                            chart: {
+                                type: 'bar'
+                            },
+                            title: {
+                                text: 'Example'
+                            },
+                            xAxis: {
+                                categories: ['First', 'Second']
+                            },
+                            yAxis: {
+                                title: {
+                                    text: 'Value'
+                                }
+                            },
+                            series: [{
+                                name: '1',
+                                data: [1, 2]
+                            }, {
+                                name: '2',
+                                data: [39.37, 40]
+                            }]
+                        });
+                    });
+                </script>
+
                 <div class="container">
                     <div id="2plot" class="container-fluid">
                         <div class="row">
                             <div class="col-md-12">
-                                <h1 class="text-md-center">f(x) = sin(x) </h1>
-                                <div class="media-heading">
-                                    <img src="images/proj/plot.png" class="img-responsive center-block">
-                                </div>
+                                <h1 class="text-md-center">Second Chart</h1>
+                                <div class="media-heading" id="container2"> </div>
                             </div>
                         </div>
                     </div>
@@ -102,6 +129,44 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(function () {
+        $('#container2').highcharts({
+            xAxis: {
+                min: -0.5,
+                max: 5.5
+            },
+            yAxis: {
+                min: 0
+            },
+            title: {
+                text: 'Example'
+            },
+            series: [{
+                type: 'line',
+                name: 'Regression Line',
+                data: [[0, 1.11], [5, 4.51]],
+                marker: {
+                    enabled: false
+                },
+                states: {
+                    hover: {
+                        lineWidth: 0
+                    }
+                },
+                enableMouseTracking: false
+            }, {
+                type: 'scatter',
+                name: 'Observations',
+                data: [1, 1.5, 2.8, 3.5, 3.9, 4.2],
+                marker: {
+                    radius: 4
+                }
+            }]
+        });
+    });
+</script>
 
 
 
@@ -123,5 +188,7 @@
         </div>
     </div>
 </footer>
+
+
 </body>
 </html>

@@ -1,3 +1,6 @@
+/.gitignore
+/out
+/classes
 /.idea
 /MonitoringSystem.iml
 /core.iml
