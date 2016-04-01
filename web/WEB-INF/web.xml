@@ -6,11 +6,11 @@
 
     <servlet>
         <servlet-name>hello</servlet-name>
-        <jsp-file>index.jsp</jsp-file>
+        <jsp-file>testTableJSP.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
         <servlet-name>hello</servlet-name>
-        <url-pattern>/index.jsp</url-pattern>
+        <url-pattern>/testTableJSP.jsp</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -20,6 +20,14 @@
     <servlet-mapping>
         <servlet-name>GetListServlet</servlet-name>
         <url-pattern>/list</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>testTableServlet</servlet-name>
+        <servlet-class>com.kalashnikov.monitoring.servlets.testTableServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>testTableServlet</servlet-name>
+        <url-pattern>/testTable</url-pattern>
     </servlet-mapping>
 
     <servlet>

@@ -5,6 +5,7 @@
     <title>List of users</title>
 </head>
 <body>
+
 <h3>All users:</h3>(<a href="add">add</a>)
 <ol>
   <c:forEach items="${users}" var="user">
