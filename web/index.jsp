@@ -21,7 +21,6 @@
     <link href="css/denisStylesheet.css" rel="stylesheet">
     <title>SP</title>
 </head>
-
 <body>
 
 <div class="col-md-12">
@@ -188,6 +187,16 @@
         </div>
     </div>
 </footer>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $.getJSON('http://localhost:8080/RestService-1.0/rs/service/getInfo', function(data){
+            $.each(data, function(key, val){
+                alert(key);
+            });
+        });
+    });
+</script>
 
 
 </body>
