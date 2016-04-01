@@ -31,6 +31,7 @@ public class UserBean {
 
     public List<UsersEntity> getAllUsers(){
         TypedQuery<UsersEntity> namedQuery = entityManager.createNamedQuery("getAllUsers", UsersEntity.class);
+        System.out.println("namedQuery.getResultList().size()" + namedQuery.getResultList().size());
         return namedQuery.getResultList();
     }
 

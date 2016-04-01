@@ -30,7 +30,7 @@ public class GraphDataRESTService {
 //            mode = true;
 //            return Response.ok("{\"info\":\"info_body\"}").build();
 //        }
-        return Response.ok("{\"Hello\":\"World\"}").build();
+        return Response.ok("{\"Heeeeello\":\"World\"}").build();
     }
 //    @GET
 //    @Path("/getInfo2")

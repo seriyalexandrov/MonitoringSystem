@@ -85,15 +85,6 @@
                     </div>
                 </div>
 
-                <script type="text/javascript">
-                    $(document).ready(function() {
-                        $.getJSON('http://localhost:8080/RestService-1.0/rs/service/getInfo', function(data){
-                            $.each(data, function(key, val){
-                                alert(key);
-                            });
-                        });
-                    });
-                </script>
 
                 <script type="text/javascript">
                     $(function () {
@@ -247,6 +238,16 @@
         </div>
     </div>
 </footer>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $.getJSON('http://localhost:8080/core_war_exploded/rs/service/getInfo', function(data){
+            $.each(data, function(key, val){
+                alert(key);
+            });
+        });
+    });
+</script>
 
 
 </body>

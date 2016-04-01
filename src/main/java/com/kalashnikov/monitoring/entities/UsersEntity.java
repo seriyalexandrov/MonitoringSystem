@@ -3,8 +3,8 @@ package com.kalashnikov.monitoring.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "USERS", schema = "PUBLIC", catalog = "GLASSFISHDB")
-@SequenceGenerator(name= "idGenerator",sequenceName = "my_sequence",allocationSize = 1)
+@Table(name = "USERS",schema = "PUBLIC", catalog = "GLASSFISHDB")
+@SequenceGenerator(name= "idGenerator",sequenceName = "PUBLIC.my_sequence",allocationSize = 1)
 @NamedQueries({
         @NamedQuery(name = "getAllUsers", query = "SELECT u FROM UsersEntity u"),
         @NamedQuery(name = "getUser", query = "SELECT u FROM UsersEntity u WHERE u.userName='stapko'")
