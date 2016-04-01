@@ -20,6 +20,7 @@ public class GraphDataRESTService {
     @Path("/getInfo")
     @Produces({MediaType.APPLICATION_JSON})
     public Response getInfo(){
+
         return Response.ok("{\"info\":\"info_body\"}").build();
     }
 }
