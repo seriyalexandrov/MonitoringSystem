@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "USERS", schema = "PUBLIC", catalog = "GLASSFISHDB")
+@SequenceGenerator(name= "idGenerator",sequenceName = "my_sequence",allocationSize = 1)
 @NamedQueries({
         @NamedQuery(name = "getAllUsers", query = "SELECT u FROM UsersEntity u"),
         @NamedQuery(name = "getUser", query = "SELECT u FROM UsersEntity u WHERE u.userName='stapko'")
@@ -15,7 +16,17 @@ public class UsersEntity {
     private Integer groupId;
     private String groupName;
 
+    public UsersEntity(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
+    }
+
+    public UsersEntity() {
+
+    }
+
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "idGenerator")
     @Column(name = "USER_ID")
     public int getUserId() {
         return userId;

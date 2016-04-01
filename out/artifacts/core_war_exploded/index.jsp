@@ -12,99 +12,100 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="css/main.css">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/templatemo_style.css" rel="stylesheet">
+    <link href="css/denisStylesheet.css" rel="stylesheet">
     <title>SP</title>
 </head>
 
 <body>
-<style>
-    .secHeader {
-        width: 60%;
-        margin: 0 auto;
-    }
-    .secHeader h1 {
-        text-transform: uppercase;
-        color: #00ACE9;
-        letter-spacing: 2px;
-        font-size: 42px;
-        font-weight: 600;
-        margin-bottom: 20px;
-    }
-    .secHeader h2 {
-        text-transform: uppercase;
-        color: #00ACE9;
-        letter-spacing: 2px;
-        font-size: 21px;
-        font-weight: 600;
-        margin-bottom: 20px;
-    }
-</style>
-<header>
+
+<div class="col-md-12">
+    <div class="secHeader">
+        <h1 class="text-center">Monitoring System</h1>
+    </div>
+</div>
+<div class="mWrapper">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-sm-4 col-md-4">
                 <div class="secHeader">
-                    <h1 class="text-center">Server Predictor</h1>
-                    <!--<h2 class="text-center"><small>project</small></h2>-->
+                    <h3 class="text-center">Navigation</h3>
                 </div>
+            </div>
+            <div class="col-sm-8 col-md-8">
+                <nav class="mainMenu">
+                    <ul class="nav">
+                        <li><a href="index.jsp">Home</a></li>
+                        <li><a href="settings.jsp">Settings</a></li>
+                        <li><a href="profile.jsp">Profile</a></li>
+                        <li><a href="#about">About</a></li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>
-</header>
+</div>
+
 <div class="container">
-    <div class="row">
-        <div class="col-md-6 col-md-offset-6">
-            <form>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                </div>
-                <div class="row">
-                    <div class="col-md-5">
-                        <button class="btn-sm">Sign in</button>
+    <div class="row-fluid">
+        <h3>Hello, guest!</h3>
+        <form class="form-inline">
+            <div class="form-group">
+                <label for="InputName">Name</label>
+                <input type="text" class="form-control" id="InputName" placeholder="Jane Doe">
+            </div>
+            <div class="form-group">
+                <label for="InputEmail">Email</label>
+                <input type="email" class="form-control" id="InputEmail" placeholder="jane.doe@example.com">
+            </div>
+            <button class="btn btn-success">Sign in</button>
+            <button class="btn btn-success">Registration</button>
+        </form>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span2">
+            <div class="col-md-2">
+                <h1 class="text-lg-left"> Here should be information about graphics</h1>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="container">
+                <div class="container">
+                    <div id="1plot" class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h1 class="text-md-center">f(x) = cos(x) </h1>
+                                <div class="media-heading">
+                                    <img src="images/proj/plot.png" class="img-responsive center-block">
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-5">
-                        <button class="btn-sm">Registration</button>
+                </div>
+
+                <div class="container">
+                    <div id="2plot" class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h1 class="text-md-center">f(x) = sin(x) </h1>
+                                <div class="media-heading">
+                                    <img src="images/proj/plot.png" class="img-responsive center-block">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<div class="container">
-    <div id="1plot" class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <h1 class="text-md-center">f(x) = cos(x) </h1>
-                <div class="media-heading">
-                    <img src="images/proj/plot.png" class="img-responsive center-block">
-                </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="container">
-    <div id="2plot" class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <h1 class="text-md-center">f(x) = sin(x) </h1>
-                <div class="media-heading">
-                    <img src="images/proj/plot.png" class="img-responsive center-block">
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
-<footer>
+
+<footer id="about" class="footer">
     <div class="container">
         <div class="row">
             <div class="col-md-3">

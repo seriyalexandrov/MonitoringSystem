@@ -16,7 +16,7 @@ public class UserBean {
     public UsersEntity saveNewUser(UsersEntity user){
         return entityManager.merge(user);
     }
-
+    
     public void updateUser(UsersEntity user){
         saveNewUser(user);
     }
@@ -30,7 +30,7 @@ public class UserBean {
     }
 
     public List<UsersEntity> getAllUsers(){
-        TypedQuery<UsersEntity> namedQuery = entityManager.createNamedQuery("UsersEntity.getAll", UsersEntity.class);
+        TypedQuery<UsersEntity> namedQuery = entityManager.createNamedQuery("getAllUsers", UsersEntity.class);
         return namedQuery.getResultList();
     }
 
