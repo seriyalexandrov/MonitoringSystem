@@ -14,7 +14,9 @@
 
 
     <link rel="stylesheet" href="css/nivo-slider.css">
-
+    <link href="css/templatemo_style.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/denisStylesheet.css" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <title>Test</title>
@@ -35,6 +37,68 @@
         <a href="#"><img src="images/catPic/97147537_Britanec_kot.jpg" alt="slide 3" /></a>
     </div>
 </div>
+
+<button onclick="loadPhones2()"></button>
+<div id="content2" class="container-fluid">
+</div>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: "phones.json",
+            success:
+                    function loadPhones() {
+
+                        var xhr = new XMLHttpRequest();
+
+                        xhr.open('GET', 'phones.json', true);
+
+
+                        xhr.send();
+
+
+                        xhr.onreadystatechange = function() {
+                            if (xhr.readyState != 4) return;
+
+                            if (xhr.status != 200) {
+                                // обработать ошибку
+                                alert(xhr.status + ': ' + xhr.statusText);
+                            } else {
+                                // вывести результат
+                                alert(xhr.responseText);
+                            }
+
+                        }
+                    }
+        });
+    });
+    function showContent(link, divtarget) {
+        var cont = document.getElementById(divtarget);
+        (function _f() {
+            var http = createRequestObject();
+            if( http ) {
+                http.open('GET', link, true);
+                http.onreadystatechange = function () {
+                    if (http.readyState == 4) {
+                        alert(http.responseText)
+                        setTimeout(_f, 3000);
+                    }
+                };
+                http.send(null);
+            } else {
+                cont.innerHTML = 'Ошибка сети';
+                setTimeout(_f, 3000);
+            }
+        })();
+    }
+    function loadPhones2() {
+        showContent('phones.json', '#content2')
+    }
+</script>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script type="text/javascript", src="js/jquery.nivo.slider.pack.js"></script>
