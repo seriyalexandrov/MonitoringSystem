@@ -18,15 +18,20 @@
         <h1 class="text-center">Monitoring System</h1>
     </div>
 </div>
-
-<div class="container">
-    <div class="row-fluid">
-        <h3>Welcome! Please select the access type or <a href="registration.jsp">register</a>.<br/><br/></h3>
-        <h4><a href="./AdminResource">ADMIN</a><br/><br/></h4>
-        <h4><a href="./UserResource">USER</a><br/><br/></h4>
-        <h4><a href="./GuestResource">GUEST</a><br/><br/></h4>
+    <div class="container">
+        <div class="row-fluid">
+            <h3>Please enter login and password or <a href="index.jsp">return to home page</a>.</h3>
+            <form method="post" action="j_security_check">
+                <div class="form-group">
+                    Username:<input type="text" class="form-control" name="j_username" id="InputLogin" placeholder="bigboss">
+                </div>
+                <div class="form-group">
+                    Password:<input type="password" class="form-control" name="j_password" id="InputPassword" placeholder="******">
+                </div>
+                <button type="submit" class="btn btn-success">Sign in</button>
+            </form>
+        </div>
     </div>
-</div>
 
 <footer id="about" class="footer">
     <div class="container">

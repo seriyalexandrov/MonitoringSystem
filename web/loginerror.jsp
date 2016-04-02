@@ -21,10 +21,7 @@
 
 <div class="container">
     <div class="row-fluid">
-        <h3>Welcome! Please select the access type or <a href="registration.jsp">register</a>.<br/><br/></h3>
-        <h4><a href="./AdminResource">ADMIN</a><br/><br/></h4>
-        <h4><a href="./UserResource">USER</a><br/><br/></h4>
-        <h4><a href="./GuestResource">GUEST</a><br/><br/></h4>
+        <h3>Oops! Incorrect username or password. Please <a href="login.jsp">sign in</a> again.</h3>
     </div>
 </div>
 

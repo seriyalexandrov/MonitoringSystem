@@ -1,6 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
+    <script type="text/javascript" src="js/jquery-2.2.0.js"></script>
+    <script type="text/javascript" src="js/highcharts.js"></script>
+    <script type="text/javascript" src="js/exporting.js"></script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,10 +24,7 @@
 
 <div class="container">
     <div class="row-fluid">
-        <h3>Welcome! Please select the access type or <a href="registration.jsp">register</a>.<br/><br/></h3>
-        <h4><a href="./AdminResource">ADMIN</a><br/><br/></h4>
-        <h4><a href="./UserResource">USER</a><br/><br/></h4>
-        <h4><a href="./GuestResource">GUEST</a><br/><br/></h4>
+        <h3>You can use the <a href="./UserResource">USER</a> access type.</h3>
     </div>
 </div>
 
