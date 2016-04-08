@@ -15,7 +15,7 @@ class ParserForWireSharkFiles {
     private final String REGEX = "^No\\. +Time +Source +Destination +Protocol +$";
     private static final int NUMBER_OF_USEFUL_STRINGS = 2;
     private static final String READING_ERROR = "Reading error";
-    private static final String SLEEP_ERROR = "Sleep error";
+    private static final String SLEEP_ERROR = "Sleeping error";
     private PackageFromWireShark firstPackage;
     private PackageFromWireShark lastPackage;
     private double maxTime;

@@ -6,16 +6,16 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="css/templatemo_style.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/templatemo_style.css" rel="stylesheet">
     <link href="css/denisStylesheet.css" rel="stylesheet">
     <title>Settings</title>
 
 </head>
 <body>
 
-<<div class="col-md-12">
+<div class="col-md-12">
     <div class="secHeader">
         <h1 class="text-center">Monitoring System</h1>
     </div>
@@ -31,10 +31,11 @@
             <div class="col-sm-8 col-md-8">
                 <nav class="mainMenu">
                     <ul class="nav">
+                        <li><a href="./LogoutServlet">Logout</a></li>
                         <li><a href="index.jsp">Home</a></li>
                         <li><a href="settings.jsp">Settings</a></li>
                         <li><a href="profile.jsp">Profile</a></li>
-                        <li><a href="#about">About</a></li>
+                        <li><a href="about.jsp">About</a></li>
                     </ul>
                 </nav>
             </div>

@@ -1,6 +1,8 @@
 package com.kalashnikov.monitoring.entities;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "SETTINGS", schema = "PUBLIC", catalog = "GLASSFISHDB")
@@ -9,12 +11,28 @@ import javax.persistence.*;
         @NamedQuery(name = "getSecondAlgorithm", query = "SELECT s FROM SettingsEntity s WHERE s.settingName='Algorithm' AND s.settingValue='Linear trend'")
 })
 public class SettingsEntity {
+    @Basic
+    @Column(name = "SETTING_NAME")
     private String settingName;
+
+    @Basic
+    @Column(name = "SETTING_VALUE")
     private String settingValue;
 
     @Id
     @Column(name = "SETTING_ID")
     private int settingId;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "settings")
+    private List<UsersEntity> users;
+
+    public List<UsersEntity> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<UsersEntity> users) {
+        this.users = users;
+    }
+
     public int getSettingId() {
         return settingId;
     }
@@ -23,8 +41,7 @@ public class SettingsEntity {
         this.settingId = settingId;
     }
 
-    @Basic
-    @Column(name = "SETTING_NAME")
+
     public String getSettingName() {
         return settingName;
     }
@@ -33,8 +50,7 @@ public class SettingsEntity {
         this.settingName = settingName;
     }
 
-    @Basic
-    @Column(name = "SETTING_VALUE")
+
     public String getSettingValue() {
         return settingValue;
     }
@@ -43,16 +59,7 @@ public class SettingsEntity {
         this.settingValue = settingValue;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "USER_ID")
-    private UsersEntity user;
-    public UsersEntity getUser() {
-        return user;
-    }
 
-    public void setUser(UsersEntity user) {
-        this.user = user;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -64,7 +71,6 @@ public class SettingsEntity {
         if (settingId != that.settingId) return false;
         if (settingName != null ? !settingName.equals(that.settingName) : that.settingName != null) return false;
         if (settingValue != null ? !settingValue.equals(that.settingValue) : that.settingValue != null) return false;
-        if (user != null ? !user.equals(that.user) : that.user != null) return false;
 
         return true;
     }
@@ -74,7 +80,6 @@ public class SettingsEntity {
         int result = settingId;
         result = 31 * result + (settingName != null ? settingName.hashCode() : 0);
         result = 31 * result + (settingValue != null ? settingValue.hashCode() : 0);
-        result = 31 * result + (user != null ? user.hashCode() : 0);
         return result;
     }
 }

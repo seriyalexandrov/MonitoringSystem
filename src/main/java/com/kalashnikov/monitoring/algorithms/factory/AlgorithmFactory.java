@@ -57,11 +57,11 @@ public class AlgorithmFactory extends Options {
 
 
         try (BufferedReader br = new BufferedReader(new FileReader(PATH))) {
-            Parser parser = new Parser(br, timeSeries, timeSeriesInterval, NUMBER_OF_INTERVALS);
+            Parser parser = new Parser(br, timeSeries, timeSeriesInterval, numberOfIntervals);
             Thread thread = new Thread(parser);
             thread.start();
 
-            for (int i = 0; i < predictionTime; i += predictionTimeInterval) {
+            for (int i = 0; i < numberOfIntervals; i+= (predictionTimeInterval/timeSeriesInterval)) {
                 Thread.sleep((long) (predictionTimeInterval * SECOND));
                 double predictedValue = function(timeSeries, timeSeriesInterval);
                 if (predictedValue > packetLimit) {

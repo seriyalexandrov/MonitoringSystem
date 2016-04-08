@@ -31,10 +31,11 @@
             <div class="col-sm-8 col-md-8">
                 <nav class="mainMenu">
                     <ul class="nav">
+                        <li><a href="./LogoutServlet">Logout</a></li>
                         <li><a href="index.jsp">Home</a></li>
                         <li><a href="settings.jsp">Settings</a></li>
                         <li><a href="profile.jsp">Profile</a></li>
-                        <li><a href="#about">About</a></li>
+                        <li><a href="about.jsp">About</a></li>
                     </ul>
                 </nav>
             </div>

@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -20,29 +19,12 @@
         <h1 class="text-center">Monitoring System</h1>
     </div>
 </div>
-<div class="mWrapper">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-4 col-md-4">
-                <div class="secHeader">
-                    <h3 class="text-center">Navigation</h3>
-                </div>
-            </div>
-            <div class="col-sm-8 col-md-8">
-                <nav class="mainMenu">
-                    <ul class="nav">
-                        <li><a href="index.jsp">Home</a></li>
-                        <li><a href="settings.jsp">Settings</a></li>
-                        <li><a href="profile.jsp">Profile</a></li>
-                        <li><a href="#about">About</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
+
+<div class="container">
+    <div class="row-fluid">
+        <h3>Oops! The unexpected exception is detected. Please, <a href="index.jsp">return to home page</a>.</h3>
     </div>
 </div>
-
-<h2>Возникла ошибка</h2>
 
 <footer id="about" class="footer">
     <div class="container">

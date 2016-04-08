@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: msi
-  Date: 19.02.2016
-  Time: 22:40
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
@@ -18,7 +11,6 @@
     <link href="css/denisStylesheet.css" rel="stylesheet">
     <title>SP</title>
 </head>
-
 <body>
 
 <div class="col-md-12">
@@ -26,84 +18,15 @@
         <h1 class="text-center">Monitoring System</h1>
     </div>
 </div>
-<div class="mWrapper">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-4 col-md-4">
-                <div class="secHeader">
-                    <h3 class="text-center">Navigation</h3>
-                </div>
-            </div>
-            <div class="col-sm-8 col-md-8">
-                <nav class="mainMenu">
-                    <ul class="nav">
-                        <li><a href="index.jsp">Home</a></li>
-                        <li><a href="settings.jsp">Settings</a></li>
-                        <li><a href="profile.jsp">Profile</a></li>
-                        <li><a href="#about">About</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="container">
     <div class="row-fluid">
-        <h3>Hello, guest!</h3>
-        <form class="form-inline">
-            <div class="form-group">
-                <label for="InputName">Name</label>
-                <input type="text" class="form-control" id="InputName" placeholder="Jane Doe">
-            </div>
-            <div class="form-group">
-                <label for="InputEmail">Email</label>
-                <input type="email" class="form-control" id="InputEmail" placeholder="jane.doe@example.com">
-            </div>
-            <button class="btn btn-success">Sign in</button>
-            <button class="btn btn-success">Registration</button>
-        </form>
-    </div>
-
-    <div class="row-fluid">
-        <div class="span2">
-            <div class="col-md-2">
-                <h1 class="text-lg-left"> Here should be information about graphics</h1>
-            </div>
-        </div>
-        <div class="col-md-10">
-            <div class="container">
-                <div class="container">
-                    <div id="1plot" class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h1 class="text-md-center">f(x) = cos(x) </h1>
-                                <div class="media-heading">
-                                    <img src="images/proj/plot.png" class="img-responsive center-block">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="container">
-                    <div id="2plot" class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h1 class="text-md-center">f(x) = sin(x) </h1>
-                                <div class="media-heading">
-                                    <img src="images/proj/plot.png" class="img-responsive center-block">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <h3>Welcome! Please select the access type or <a href="registration.jsp">register</a>.<br/><br/></h3>
+        <h4><a href="./AdminResource">ADMIN</a><br/><br/></h4>
+        <h4><a href="./UserResource">USER</a><br/><br/></h4>
+        <h4><a href="./GuestResource">GUEST</a><br/><br/></h4>
     </div>
 </div>
-
-
 
 <footer id="about" class="footer">
     <div class="container">
@@ -123,5 +46,6 @@
         </div>
     </div>
 </footer>
+
 </body>
 </html>

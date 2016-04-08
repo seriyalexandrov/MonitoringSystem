@@ -15,12 +15,14 @@ public class Options {
     public static final String PREDICTION_TIME = "prediction_time";
     public static final String NUMBER_OF_VALUES_FOR_TREND = "number_of_values_for_trend";
     public static final String PACKET_LIMIT = "packet_limit";
+    public static final String NUMBER_OF_INTERVALS = "number_of_intervals";
     private final double DOUBLE_ZERO = 0d;
 
     public String algorithmType = getAlgorithmType();
     public double timeSeriesInterval = getTimeSeriesInterval();
     public double predictionTimeInterval = getPredictionTimeInterval();
-    public double predictionTime = getPredictionTime();
+//    public double predictionTime = getPredictionTime();
+    public int numberOfIntervals = getNumberOfIntervals();
     public int packetLimit = getPacketLimit();
     public int numberOfValuesForTrend = getNumberOfValuesForTrend();
 
@@ -89,6 +91,17 @@ public class Options {
         ConfigurationManager configurationManager = ConfigurationManager.getInstance();
         try {
             return Integer.parseInt(configurationManager.getOptionValue(NUMBER_OF_VALUES_FOR_TREND));
+        } catch (NoSuchOptionException e) {
+            log.error(NO_SUCH_OPTIONS, e);
+        }
+        return 0;
+
+    }
+    private int getNumberOfIntervals() {
+
+        ConfigurationManager configurationManager = ConfigurationManager.getInstance();
+        try {
+            return Integer.parseInt(configurationManager.getOptionValue(NUMBER_OF_INTERVALS));
         } catch (NoSuchOptionException e) {
             log.error(NO_SUCH_OPTIONS, e);
         }

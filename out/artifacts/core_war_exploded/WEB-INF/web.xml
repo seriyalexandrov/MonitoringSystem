@@ -53,74 +53,76 @@
     </welcome-file-list>
 
     <error-page>
+        <error-code>403</error-code>
+        <location>/error.jsp</location>
+    </error-page>
+    <error-page>
         <error-code>404</error-code>
         <location>/error.jsp</location>
     </error-page>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
     <security-constraint>
-        <display-name>Администратор</display-name>
+        <display-name>Admin</display-name>
         <web-resource-collection>
-            <web-resource-name>Администратор</web-resource-name>
-            <description/>
-            <url-pattern>/adminpage.xhtml</url-pattern>
+            <web-resource-name>Admin</web-resource-name>
+            <url-pattern>/adminpage.jsp</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+            <http-method>HEAD</http-method>
+            <http-method>PUT</http-method>
+            <http-method>OPTIONS</http-method>
+            <http-method>TRACE</http-method>
+            <http-method>DELETE</http-method>
         </web-resource-collection>
         <auth-constraint>
             <description/>
             <role-name>admin</role-name>
         </auth-constraint>
         <user-data-constraint>
-            <description/>
-            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+            <transport-guarantee>NONE</transport-guarantee>
         </user-data-constraint>
     </security-constraint>
     <security-constraint>
-        <display-name>Пользователь</display-name>
+        <display-name>User</display-name>
         <web-resource-collection>
-            <web-resource-name>Пользователь</web-resource-name>
-            <description/>
+            <web-resource-name>User</web-resource-name>
             <url-pattern>/userpage.jsp</url-pattern>
+            <url-pattern>/settings.jsp</url-pattern>
+            <url-pattern>/about.jsp</url-pattern>
+            <url-pattern>/profile.jsp</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+            <http-method>HEAD</http-method>
+            <http-method>PUT</http-method>
+            <http-method>OPTIONS</http-method>
+            <http-method>TRACE</http-method>
+            <http-method>DELETE</http-method>
         </web-resource-collection>
         <auth-constraint>
             <description/>
-            <role-name>user</role-name>
             <role-name>admin</role-name>
+            <role-name>user</role-name>
         </auth-constraint>
         <user-data-constraint>
-            <description/>
-            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+            <transport-guarantee>NONE</transport-guarantee>
         </user-data-constraint>
-    </security-constraint>
-    <security-constraint>
-        <display-name>Гость</display-name>
-        <web-resource-collection>
-            <web-resource-name>Гость</web-resource-name>
-            <description/>
-            <url-pattern>/guestpage.xhtml</url-pattern>
-        </web-resource-collection>
-        <auth-constraint>
-            <description/>
-            <role-name>guest</role-name>
-            <role-name>admin</role-name>
-            <role-name>user</role-name>
-        </auth-constraint>
     </security-constraint>
     <login-config>
         <auth-method>FORM</auth-method>
         <realm-name>jdbcRealm</realm-name>
         <form-login-config>
-            <form-login-page>/index.jsp</form-login-page>
-            <form-error-page>/error.jsp</form-error-page>
+            <form-login-page>/login.jsp</form-login-page>
+            <form-error-page>/loginerror.jsp</form-error-page>
         </form-login-config>
     </login-config>
     <security-role>
-        <description/>
         <role-name>admin</role-name>
     </security-role>
     <security-role>
-        <description/>
         <role-name>user</role-name>
-    </security-role>
-    <security-role>
-        <description/>
-        <role-name>guest</role-name>
     </security-role>
 </web-app>
