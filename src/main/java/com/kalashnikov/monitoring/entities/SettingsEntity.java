@@ -22,16 +22,30 @@ public class SettingsEntity {
     @Id
     @Column(name = "SETTING_ID")
     private int settingId;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "settings")
-    private List<UsersEntity> users;
 
-    public List<UsersEntity> getUsers() {
-        return users;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUsers(List<UsersEntity> users) {
-        this.users = users;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
+
+    @Basic
+    @Column(name = "USER_ID")
+    private String userId;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @PrimaryKeyJoinColumn(name = "USER_ID")
+    private UsersEntity user;
+
+    public UsersEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UsersEntity user) {
+        this.user = user;
+    }
+
 
     public int getSettingId() {
         return settingId;
