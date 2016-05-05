@@ -13,14 +13,14 @@ public class ParserTest {
 
     public final String path = "src\\main\\resources\\traffic.cap";
     //    public final String path = "D:\\GitHub\\traffic.txt";
-    public final double timeInterval = 10;
+    public final double timeInterval = 1;
 
     @Test
     public void parserTest() throws IOException, InterruptedException {
         ArrayList<ArrayList<PackageFromWireShark>> values = new ArrayList();
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
 
-            Parser parser = new Parser(br, values, timeInterval, 10);
+            Parser parser = new Parser(br, values, 0, 10);
             Thread thread = new Thread(parser);
             thread.start();
             thread.join();

@@ -1,7 +1,9 @@
 package com.kalashnikov.monitoring.entities;
 
 import javax.persistence.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 @Table(name = "USERS",schema = "PUBLIC", catalog = "GLASSFISHDB")
@@ -26,9 +28,6 @@ public class UsersEntity {
     @Basic
     @Column(name = "GROUP_NAME")
     private String groupName;
-
-
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "idGenerator")

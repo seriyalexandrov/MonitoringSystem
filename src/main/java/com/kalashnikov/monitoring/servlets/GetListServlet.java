@@ -12,10 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class GetListServlet extends HttpServlet {
     @EJB
@@ -28,15 +25,23 @@ public class GetListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         List<UsersEntity> allUsers = userBean.getAllUsers();
+        List<String> settingsNames = getSettingsNames();
+        ArrayList<UsersEntityAndSettings> infoList = new ArrayList<>();
+        for(UsersEntity user: allUsers){
+            infoList.add(new UsersEntityAndSettings(user));
+        }
+        req.setAttribute("settingsNames",settingsNames);
+        req.setAttribute("infoList",infoList);
+        req.getRequestDispatcher("/list.jsp").forward(req,resp);
+
+    }
+    private List<String> getSettingsNames(){
         List<SettingsEntity> allSettings = settingBean.getAllSettings();
         Set<String> namesSet = new HashSet<>();
         for(SettingsEntity setting : allSettings){
             namesSet.add(setting.getSettingName());
         }
-        List<String> namesSettings = new ArrayList<>(namesSet);
-        req.setAttribute("settingsNames",namesSettings);
-        req.setAttribute("users",allUsers);
-        req.getRequestDispatcher("/list.jsp").forward(req,resp);
-
+        List<String> settingsNames = new ArrayList<>(namesSet);
+        return settingsNames;
     }
 }
