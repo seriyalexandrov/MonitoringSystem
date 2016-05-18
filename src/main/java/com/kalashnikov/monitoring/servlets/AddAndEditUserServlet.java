@@ -42,10 +42,6 @@ public class AddAndEditUserServlet extends HttpServlet {
         if (req.getParameter("userId") != null && !req.getParameter("userId").equals("")) {
             int userId = Integer.valueOf(req.getParameter("userId"));
             UsersEntity user = userBean.getUser(userId);
-            for(SettingsEntity setting : user.getSettings()){
-                String settingName = setting.getSettingName();
-                //
-            }
             user.setUserName(userName);
             user.setPassword(password);
             userBean.updateUser(user);

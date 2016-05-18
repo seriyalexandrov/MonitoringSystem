@@ -1,5 +1,4 @@
 <%@ page import="com.kalashnikov.monitoring.entities.UsersEntity" %>
-<%@ page import="com.kalashnikov.monitoring.entities.SettingsEntity" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -24,16 +23,6 @@
     <label for="password">Enter password:
         <input type="text" id="password" value="<%=password%>"  name="password"/>
     </label> <br/>
-    <%
-        if (user != null){
-            for(SettingsEntity setting : user.getSettings()){
-                String settingName = setting.getSettingName();
-    %>
-    <label for="<%=settingName%>">Enter <%=settingName.toLowerCase()%> value:
-        <input type="text" id="<%=settingName%>"  name="newSettingValue" value="<%=setting.getSettingValue()%>"/>
-    </label> <br/>
-    <%}
-        }%>
     <label for="newSettingName">Enter setting name:
         <input type="text" id="newSettingName"  name="newSettingName"/>
     </label> <br/>
