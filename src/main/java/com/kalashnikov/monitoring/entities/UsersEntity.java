@@ -34,7 +34,7 @@ public class UsersEntity {
     @Column(name = "USER_ID")
     private int userId;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<SettingsEntity> settings;
 
     public List<SettingsEntity> getSettings() {

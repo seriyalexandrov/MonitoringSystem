@@ -1,5 +1,7 @@
 package com.kalashnikov.monitoring.entities;
 
+import org.eclipse.persistence.internal.oxm.schema.model.All;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
@@ -11,8 +13,18 @@ import java.util.Set;
         @NamedQuery(name = "getSecondAlgorithm", query = "SELECT s FROM SettingsEntity s WHERE s.settingName='Algorithm' AND s.settingValue='Linear trend'")
 })
 public class SettingsEntity {
+    public SettingsEntity(String settingName, String settingValue, int userId) {
+        this.settingName = settingName;
+        this.settingValue = settingValue;
+        this.userId = userId;
+    }
+
+    public SettingsEntity() {
+    }
+
     @Basic
     @Column(name = "SETTING_NAME")
+
     private String settingName;
 
     @Basic
@@ -20,21 +32,23 @@ public class SettingsEntity {
     private String settingValue;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "idGenerator")
     @Column(name = "SETTING_ID")
     private int settingId;
 
-    public String getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
     @Basic
     @Column(name = "USER_ID")
-    private String userId;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private int userId;
+//    @ManyToOne(fetch = FetchType.EAGER,cascade = {})
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {})
     @PrimaryKeyJoinColumn(name = "USER_ID")
     private UsersEntity user;
 
@@ -95,5 +109,16 @@ public class SettingsEntity {
         result = 31 * result + (settingName != null ? settingName.hashCode() : 0);
         result = 31 * result + (settingValue != null ? settingValue.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "SettingsEntity{" +
+                "settingName='" + settingName + '\'' +
+                ", settingValue='" + settingValue + '\'' +
+                ", settingId=" + settingId +
+                ", userId=" + userId +
+                ", user=" + user +
+                '}';
     }
 }

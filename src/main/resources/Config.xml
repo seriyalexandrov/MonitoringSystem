@@ -10,7 +10,7 @@
     </option>
     <option>
         <option_name>prediction_time_interval</option_name>
-        <option_value>4</option_value>
+        <option_value>2</option_value>
     </option>
     <option>
         <option_name>packet_limit</option_name>

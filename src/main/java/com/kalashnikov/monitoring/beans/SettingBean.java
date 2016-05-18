@@ -35,4 +35,5 @@ public class SettingBean {
         return namedQuery.getResultList();
     }
 
+
 }

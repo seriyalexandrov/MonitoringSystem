@@ -1,7 +1,9 @@
 package com.kalashnikov.monitoring.servlets;
 
 
+import com.kalashnikov.monitoring.beans.SettingBean;
 import com.kalashnikov.monitoring.beans.UserBean;
+import com.kalashnikov.monitoring.entities.SettingsEntity;
 import com.kalashnikov.monitoring.entities.UsersEntity;
 
 import javax.ejb.EJB;
@@ -15,6 +17,9 @@ import java.io.IOException;
 public class AddAndEditUserServlet extends HttpServlet {
     @EJB
     private UserBean userBean;
+
+    @EJB
+    private SettingBean settingBean;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -32,12 +37,21 @@ public class AddAndEditUserServlet extends HttpServlet {
             throws ServletException, IOException {
         String userName = req.getParameter("userName");
         String password = req.getParameter("password");
+        String newSettingName = req.getParameter("newSettingName");
+        String newSettingValue = req.getParameter("newSettingValue");
         if (req.getParameter("userId") != null && !req.getParameter("userId").equals("")) {
             int userId = Integer.valueOf(req.getParameter("userId"));
             UsersEntity user = userBean.getUser(userId);
+            for(SettingsEntity setting : user.getSettings()){
+                String settingName = setting.getSettingName();
+                //
+            }
             user.setUserName(userName);
             user.setPassword(password);
             userBean.updateUser(user);
+            if(newSettingName != null && !newSettingName.equals("")){
+                settingBean.saveNewSetting(new SettingsEntity(newSettingName,newSettingValue,userId));
+            }
         } else {
             userBean.saveNewUser(new UsersEntity(userName, password));
         }

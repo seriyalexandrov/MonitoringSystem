@@ -25,6 +25,7 @@ public class GetListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         List<UsersEntity> allUsers = userBean.getAllUsers();
+        System.out.println(" \n\n\n\n allUsers: " + allUsers.get(0).getSettings());
         List<String> settingsNames = getSettingsNames();
         ArrayList<UsersEntityAndSettings> infoList = new ArrayList<>();
         for(UsersEntity user: allUsers){

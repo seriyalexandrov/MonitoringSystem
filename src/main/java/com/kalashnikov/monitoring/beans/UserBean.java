@@ -1,5 +1,6 @@
 package com.kalashnikov.monitoring.beans;
 
+import com.kalashnikov.monitoring.entities.SettingsEntity;
 import com.kalashnikov.monitoring.entities.UsersEntity;
 
 import javax.ejb.Stateless;
@@ -32,7 +33,14 @@ public class UserBean {
     public List<UsersEntity> getAllUsers(){
         TypedQuery<UsersEntity> namedQuery = entityManager.createNamedQuery("getAllUsers", UsersEntity.class);
         System.out.println("namedQuery.getResultList().size()" + namedQuery.getResultList().size());
-        return namedQuery.getResultList();
+        List<UsersEntity> resultList = namedQuery.getResultList();
+        for (UsersEntity usersEntity : resultList) {
+            entityManager.refresh(usersEntity);
+//            for (SettingsEntity setting : usersEntity.getSettings()) {
+//                entityManager.refresh(setting);
+//            }
+        }
+        return resultList;
     }
 
 }
