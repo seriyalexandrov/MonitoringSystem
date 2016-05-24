@@ -20,7 +20,7 @@ public class ParserTest {
         ArrayList<ArrayList<PackageFromWireShark>> values = new ArrayList();
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
 
-            Parser parser = new Parser(br, values, 0, 10);
+            Parser parser = new Parser(br, values, 1, 12);
             Thread thread = new Thread(parser);
             thread.start();
             thread.join();

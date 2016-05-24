@@ -59,7 +59,7 @@ class ParserForWireSharkFiles {
                         Thread.sleep(sleepTime);
                     }
                 } catch (InterruptedException e) {
-                    log.error(SLEEP_ERROR, e);
+                    log.error(SLEEP_ERROR+1, e);
                 }
                 return packages;
             }
@@ -90,7 +90,7 @@ class ParserForWireSharkFiles {
                                 Thread.sleep(sleepTime);
                             }
                         } catch (InterruptedException e) {
-                            log.error(SLEEP_ERROR, e);
+                            log.error(SLEEP_ERROR+2, e);
                         }
                         return packages;
                     }
@@ -101,7 +101,7 @@ class ParserForWireSharkFiles {
                 }
             }
         } catch (IOException e) {
-            log.error(READING_ERROR, e);
+            log.error(READING_ERROR+3, e);
             return null;
         }
         lastPackage = null;
@@ -112,7 +112,7 @@ class ParserForWireSharkFiles {
                 Thread.sleep(sleepTime);
             }
         } catch (InterruptedException e) {
-            log.error(SLEEP_ERROR, e);
+           log.error(SLEEP_ERROR+4, e);
         }
         return packages;
     }
@@ -143,9 +143,10 @@ class ParserForWireSharkFiles {
                     stringLikeRegexpFlag = true;
                 }
             }
+            log.error("Privet");
             return null;
         } catch (IOException e) {
-            log.error(READING_ERROR, e);
+            log.error(READING_ERROR+5, e);
             return null;
         }
 

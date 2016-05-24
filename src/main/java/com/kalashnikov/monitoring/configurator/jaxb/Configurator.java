@@ -12,7 +12,7 @@ import java.io.*;
 class Configurator {
 
     private static final String CONFIG_FOLDER = "src//main//resources//Config.xml";
-    private static Logger log = Logger.getLogger(Configurator.class);
+//    private static Logger log = Logger.getLogger(Configurator.class);
 
     public static void  marshaller(Options myOptions) {
 
@@ -22,7 +22,7 @@ class Configurator {
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             marshaller.marshal(myOptions, new File(CONFIG_FOLDER));
         } catch (JAXBException e) {
-            log.error(e);
+//            log.error(e);
         }
 
     }
@@ -37,7 +37,7 @@ class Configurator {
             File xmlFile = new File(CONFIG_FOLDER);
             myOptions = (Options) unmarshaller.unmarshal(xmlFile);
         } catch (JAXBException e) {
-            log.error(e);
+//            log.error(e);
         }
 
         return myOptions;

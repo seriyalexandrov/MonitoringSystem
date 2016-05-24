@@ -10,7 +10,7 @@ public class Parser implements Runnable {
 
 
     private static final Logger log = Logger.getLogger(Parser.class);
-    private ArrayList values;
+    private ArrayList<ArrayList<PackageFromWireShark>> values;
     private BufferedReader br;
     private double timeInterval;
     private int numberOfIntervals;
@@ -30,10 +30,12 @@ public class Parser implements Runnable {
         setValues();
     }
 
+    public ArrayList<ArrayList<PackageFromWireShark>> getValues() {
+        return values;
+    }
 
     private synchronized void setValues() {
-
-        ArrayList<PackageFromWireShark> arrayListOfPackages;
+        ArrayList<PackageFromWireShark> arrayListOfPackages = new ArrayList<PackageFromWireShark>();
         double maxTime = timeInterval;
         PackageFromWireShark lastPackage;
         ParserForWireSharkFiles parser = new ParserForWireSharkFiles(null, maxTime, br, timeInterval);
@@ -45,6 +47,8 @@ public class Parser implements Runnable {
             values.add(arrayListOfPackages);
             maxTime += timeInterval;
             lastPackage = parser.getLastPackage();
+//            log.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!ITERATION!!!!!!!!!!!!!!!!!!!!!!!");
+//            System.out.println("ITERATION!!!!!!!!!!!!!!!!!!!!!!!"+arrayListOfPackages);
             parser = new ParserForWireSharkFiles(lastPackage, maxTime, br, timeInterval);
         }
     }

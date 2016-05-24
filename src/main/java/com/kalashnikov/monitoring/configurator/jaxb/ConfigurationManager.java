@@ -9,7 +9,7 @@ import java.util.Iterator;
 public final class ConfigurationManager {
 
     private Options options;
-    private Logger log = Logger.getLogger(ConfigurationManager.class);
+//    private Logger log = Logger.getLogger(ConfigurationManager.class);
 
     private ConfigurationManager() {
 
@@ -109,7 +109,7 @@ public final class ConfigurationManager {
 
         if (!result) {
 
-            log.error("Option \"" + optionName + "\" not found");
+//            log.error("Option \"" + optionName + "\" not found");
             throw new NoSuchOptionException();
 
         }

@@ -6,6 +6,7 @@ import com.kalashnikov.monitoring.parser.wireshark.Parser;
 import com.kalashnikov.monitoring.parser.wireshark.PackageFromWireShark;
 import org.apache.log4j.Logger;
 
+import javax.ws.rs.core.Response;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -28,12 +29,13 @@ public class AlgorithmFactory extends Options {
     public static final String COM_KALASHNIKOV_MONITORING_ALGORITHMS = "com.kalashnikov.monitoring.algorithms.";
     public static final String ERROR_WHILE_LAUNCHING_ALGORITHM = "Error while launching algorithm";
 //    public static final String PATH = "src\\main\\resources\\traffic.cap";
-    public static final String PATH = "D:\\GitHub\\traffic.txt";
+    public static final String PATH = "E:\\prog\\Java_Progs\\NET_CRACKER_PROJ\\MonitoringSystem\\src\\main\\resources\\traffic.cap";
+//    public static final String PATH = "D:\\GitHub\\traffic.txt";
     public static final int NUMBER_OF_INTERVALS = 12;
 
     private final int SECOND = 1000;
 
-    private static final Logger log = Logger.getLogger(AlgorithmFactory.class);
+    public static final Logger log = Logger.getLogger(AlgorithmFactory.class);
 
     public AbstractAlgorithm getAlgorithmClass() throws IOException, InstantiationException, IllegalAccessException {
 
@@ -43,11 +45,38 @@ public class AlgorithmFactory extends Options {
             algorithm = (Class<AbstractAlgorithm>) Class
                     .forName(COM_KALASHNIKOV_MONITORING_ALGORITHMS + algorithmType);
         } catch (ClassNotFoundException e) {
-            log.error(ERROR_WHILE_LAUNCHING_ALGORITHM, e);
+//            log.error(ERROR_WHILE_LAUNCHING_ALGORITHM, e);
         }
 
         return algorithm.newInstance();
 
+    }
+
+    public void execute2(){
+        ArrayList<ArrayList<PackageFromWireShark>> timeSeries = new ArrayList<>();
+        int counter = 0;
+        counter++;
+        if (counter==1){
+            long startTime = System.currentTimeMillis();
+            try(BufferedReader br = new BufferedReader(new FileReader(AlgorithmFactory.PATH))){
+                Parser parser = new Parser(br, timeSeries, timeSeriesInterval, AlgorithmFactory.NUMBER_OF_INTERVALS);
+                Thread thread = new Thread(parser);
+                thread.start();
+//                Thread.sleep(1000);
+//                while (true)
+//                System.out.println(timeSeries.get(0));
+            } catch (FileNotFoundException e) {
+                AlgorithmFactory.log.error(AlgorithmFactory.FILE_WAS_NOT_FOUND, e);
+            } catch (IOException e) {
+                AlgorithmFactory.log.error(AlgorithmFactory.EXECUTION_WAS_STOPPED, e);
+            }
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            catch (InterruptedException e) {
+//                AlgorithmFactory.log.error(PROCESS_WAS_INTERRUPTED, e);
+//            }
+        }
     }
 
     public void execute() {
@@ -65,7 +94,7 @@ public class AlgorithmFactory extends Options {
                 Thread.sleep((long) (predictionTimeInterval * SECOND));
                 double predictedValue = function(timeSeries, timeSeriesInterval);
                 if (predictedValue > packetLimit) {
-                    log.warn(LIMIT_IS_EXCEEDED_GET_READY_TO_IT);
+//                    log.warn(LIMIT_IS_EXCEEDED_GET_READY_TO_IT);
                 }
                 System.out.print(TIME_SERIES+":");
                 for(ArrayList<PackageFromWireShark> list:timeSeries){
@@ -77,16 +106,16 @@ public class AlgorithmFactory extends Options {
             thread.join();
 
         } catch (FileNotFoundException e) {
-            log.error(FILE_WAS_NOT_FOUND, e);
+//            log.error(FILE_WAS_NOT_FOUND, e);
         } catch (IOException e) {
-            log.error(EXECUTION_WAS_STOPPED, e);
+//            log.error(EXECUTION_WAS_STOPPED, e);
         } catch (InterruptedException e) {
-            log.error(PROCESS_WAS_INTERRUPTED, e);
+//            log.error(PROCESS_WAS_INTERRUPTED, e);
         }
 
         long endTime = System.currentTimeMillis() - startTime;
 
-        log.info(EXECUTION_TIME + (double) endTime / SECOND + SEC);
+//        log.info(EXECUTION_TIME + (double) endTime / SECOND + SEC);
 
     }
 
@@ -117,11 +146,11 @@ public class AlgorithmFactory extends Options {
         try {
             algorithmClass = getAlgorithmClass();
         } catch (IOException e) {
-            log.error(ERROR_DURING_LOADING_ALGORITHM_CLASS, e);
+//            log.error(ERROR_DURING_LOADING_ALGORITHM_CLASS, e);
         } catch (InstantiationException e) {
-            log.error(ERROR_DURING_INSTANTIATION, e);
+//            log.error(ERROR_DURING_INSTANTIATION, e);
         } catch (IllegalAccessException e) {
-            log.error(ACCESS_ERROR_DURING_LOADING_ALGORITHM_CLASS, e);
+//            log.error(ACCESS_ERROR_DURING_LOADING_ALGORITHM_CLASS, e);
         }
 
         algorithmClass.setTimeSeriesManager(manager);

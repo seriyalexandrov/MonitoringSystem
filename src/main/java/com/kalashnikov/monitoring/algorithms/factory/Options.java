@@ -21,7 +21,7 @@ public class Options {
     public String algorithmType = getAlgorithmType();
     public double timeSeriesInterval = getTimeSeriesInterval();
     public double predictionTimeInterval = getPredictionTimeInterval();
-//    public double predictionTime = getPredictionTime();
+    public double predictionTime = getPredictionTime();
     public int numberOfIntervals = getNumberOfIntervals();
     public int packetLimit = getPacketLimit();
     public int numberOfValuesForTrend = getNumberOfValuesForTrend();
@@ -32,7 +32,7 @@ public class Options {
         try {
             return configurationManager.getOptionValue(ALGORITHM);
         } catch (NoSuchOptionException e) {
-            log.error(NO_SUCH_OPTIONS, e);
+            log.error(NO_SUCH_OPTIONS + ": " + ALGORITHM, e);
         }
         return null;
 
@@ -44,7 +44,7 @@ public class Options {
         try {
             return Double.parseDouble(configurationManager.getOptionValue(TIME_SERIES_INTERVAL));
         } catch (NoSuchOptionException e) {
-            log.error(NO_SUCH_OPTIONS, e);
+            log.error(NO_SUCH_OPTIONS + ": " + TIME_SERIES_INTERVAL, e);
         }
         return DOUBLE_ZERO;
 
@@ -56,7 +56,7 @@ public class Options {
         try {
             return Double.parseDouble(configurationManager.getOptionValue(PREDICTION_TIME_INTERVAL));
         } catch (NoSuchOptionException e) {
-            log.error(NO_SUCH_OPTIONS, e);
+            log.error(NO_SUCH_OPTIONS + ": " + PREDICTION_TIME_INTERVAL, e);
         }
         return DOUBLE_ZERO;
 
@@ -68,7 +68,7 @@ public class Options {
         try {
             return Double.parseDouble(configurationManager.getOptionValue(PREDICTION_TIME));
         } catch (NoSuchOptionException e) {
-            log.error(NO_SUCH_OPTIONS, e);
+            log.error(NO_SUCH_OPTIONS + ": " + PREDICTION_TIME, e);
         }
         return DOUBLE_ZERO;
 
@@ -80,7 +80,7 @@ public class Options {
         try {
             return Integer.parseInt(configurationManager.getOptionValue(PACKET_LIMIT));
         } catch (NoSuchOptionException e) {
-            log.error(NO_SUCH_OPTIONS, e);
+            log.error(NO_SUCH_OPTIONS + ": " + PACKET_LIMIT, e);
         }
         return 0;
 
@@ -92,7 +92,7 @@ public class Options {
         try {
             return Integer.parseInt(configurationManager.getOptionValue(NUMBER_OF_VALUES_FOR_TREND));
         } catch (NoSuchOptionException e) {
-            log.error(NO_SUCH_OPTIONS, e);
+            log.error(NO_SUCH_OPTIONS + ": " + NUMBER_OF_VALUES_FOR_TREND, e);
         }
         return 0;
 
@@ -103,7 +103,7 @@ public class Options {
         try {
             return Integer.parseInt(configurationManager.getOptionValue(NUMBER_OF_INTERVALS));
         } catch (NoSuchOptionException e) {
-            log.error(NO_SUCH_OPTIONS, e);
+            log.error(NO_SUCH_OPTIONS + ": " + NUMBER_OF_INTERVALS, e);
         }
         return 0;
 
